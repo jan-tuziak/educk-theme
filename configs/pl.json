@@ -1,0 +1,11 @@
+{
+    "wp-login": {
+        "logo_url" : "/wp-content/uploads/2025/02/educk-logo-black.png",
+        "background_image_url" : "/wp-content/uploads/2024/11/okregi-tiny.png"
+    },
+    "woo" : {
+        "read_more": "Zobacz więcej",
+        "add_to_cart": "Dodaj do koszyka",
+        "netto": "netto"
+    }
+}
