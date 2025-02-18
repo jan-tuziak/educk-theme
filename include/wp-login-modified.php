@@ -47,7 +47,7 @@ function custom_login_css() {
 		@import url('https://fonts.googleapis.com/css?family=Archivo&display=swap');
 		
 		.login h1 a {
-			background-image: url(" . $config['wp-login']['logo_url'] . ");
+			background-image: url(/wp-content/uploads/2025/02/educk-logo-black.png);
 			background-size: contain;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -61,7 +61,7 @@ function custom_login_css() {
 			background-position-x: right;
 			background-position-y: top;
 			background-repeat: no-repeat;
-			background-image: url(" . $config['wp-login']['background_image_url'] . ");
+			background-image: url(/wp-content/uploads/2025/02/okregi-tiny.png);
 			font-family: 'Archivo';
 		}
 

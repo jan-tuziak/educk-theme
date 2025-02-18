@@ -1,31 +1,13 @@
 <?php
-include_once get_theme_file_path('config.php'); // loads $config and $TLD variables. Must be first!
+$TLD = end(explode('.', parse_url($home_url)["host"])); // 'org' or 'pl'
+$include_file = ($TLD === 'pl') ? 'include/pl.php' : 'include/org.php'
+include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
-if ($TLD === 'pl'){
-	include_once get_theme_file_path('include/polish-text-and-translations.php');
-}
+
 
 add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles');
 function enqueue_parent_styles() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
-}
-
-/*
- *  Change Main Woocommerce Button for Courses to "Read More"
- */
-add_filter( 'woocommerce_loop_add_to_cart_link', 'replace_loop_add_to_cart_button', 10, 2 );
-function replace_loop_add_to_cart_button( $button, $product  ) {
-    // Course products
-    if( $product->is_type( 'course' ) ) {
-        $button_text = __( $config['woo']['read_more'], "woocommerce" );
-		return '<a class="view-product button" href="' . $product->get_permalink() . '">' . $button_text . '</a>';
-    } 
-    // Other product types
-    else {
-		//$button_text = add_to_cart_text(); <- does not work for some reason. Investigate later 
-		$button_text = __( $config['woo']['add_to_cart'], "woocommerce" );
-		return '<a class="view-product button" href="?add-to-cart=' . $product->get_id() . '">' . $button_text . '</a>';
-    }
 }
 
 /**
@@ -100,19 +82,6 @@ function allow_all_consent(){
 add_filter ('woocommerce_add_to_cart_redirect', function( $url, $adding_to_cart ) {
     return wc_get_checkout_url();
 }, 10, 2 ); 
-
-/**
- * @snippet       Prices Incl + Excl Tax | WooCommerce Shop
- * @how-to        businessbloomer.com/woocommerce-customization
- * @author        Rodolfo Melogli, Business Bloomer
- * @compatible    WooCommerce 7
- * @community     https://businessbloomer.com/club/
- */
-add_filter( 'woocommerce_get_price_suffix', 'bbloomer_add_price_suffix_price_inc_tax', 99, 4 );
-function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
-    $suffix = '<br><small>' . wc_price( wc_get_price_excluding_tax( $product ) ) . ' ' . $config['woo']['netto'] . '</small>';
-    return $suffix;
-}
 
 /**
  * @snippet       Remove Tax if Field Value - WooCommerce Checkout
