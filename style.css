@@ -8,3 +8,9 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Template: hello-elementor
 */
+
+
+/* This code removes the qunatity field from the Cart pages */
+.woocommerce table.cart td:nth-of-type(4), .woocommerce table.cart th:nth-of-type(4) {
+   display: none;
+}
