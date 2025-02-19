@@ -139,3 +139,10 @@ function dyanmicCss() {
 	remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
 	remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' ); 
  }
+
+/* This code removes the qunatity field from these pages:
+ *  - Single Product Page
+ *  - Cart Page
+ *  - Product Archive Page
+ */
+add_filter( 'woocommerce_is_sold_individually', '__return_true' );
