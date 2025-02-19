@@ -145,4 +145,8 @@ function dyanmicCss() {
  *  - Cart Page
  *  - Product Archive Page
  */
-add_filter( 'woocommerce_is_sold_individually', '__return_true' );
+add_filter( 'woocommerce_is_sold_individually', 'wc_remove_all_quantity_fields', 10, 2 );
+function wc_remove_all_quantity_fields( $return, $product ) 
+{
+    return( true );
+}
