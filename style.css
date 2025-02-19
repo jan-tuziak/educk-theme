@@ -11,6 +11,7 @@ Template: hello-elementor
 
 
 /* This code removes the qunatity field from the Cart pages */
-.woocommerce table.cart td:nth-of-type(5), .woocommerce table.cart th:nth-of-type(5) {
+.woocommerce table.cart td:nth-of-type(5), .woocommerce table.cart th:nth-of-type(5),
+.woocommerce table.cart td:nth-of-type(6), .woocommerce table.cart th:nth-of-type(6) {
    display: none;
 }
