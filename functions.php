@@ -140,3 +140,9 @@ function dyanmicCss() {
 	remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
 	remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' ); 
  }
+
+// Globally remove Page Title from all pages 
+add_filter( 'hello_elementor_page_title', 'ele_disable_page_title' );
+function ele_disable_page_title( $return ) {
+	return false;
+}	
