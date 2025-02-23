@@ -24,5 +24,5 @@ form.woocommerce-checkout a{
 /* Remove Returning Customer section from Checkout page until the Cloudflar Turnstile issue is solved:
 ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-customers/ */
 .e-woocommerce-login-section {
-   display: none;
+   display: none !important;
 }
