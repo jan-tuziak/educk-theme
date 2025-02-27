@@ -26,3 +26,8 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .e-woocommerce-login-section {
    display: none !important;
 }
+
+/* Fix the spacing on LearnDash's Lesson List */
+.ld-status-icon {
+    margin-top: 0px;
+}
