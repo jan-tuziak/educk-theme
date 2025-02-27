@@ -28,6 +28,6 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 }
 
 /* Fix the spacing on LearnDash's Lesson List */
-.ld-status-icon {
-    margin-top: 0px !important;
+.ld-item-list-item .ld-item-list-item-preview .ld-item-name .ld-status-icon {
+   margin-top: 0px !important;
 }
