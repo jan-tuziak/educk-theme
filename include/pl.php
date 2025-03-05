@@ -142,6 +142,6 @@ function replace_loop_add_to_cart_button( $button, $product  ) {
  */
 add_filter( 'woocommerce_get_price_suffix', 'bbloomer_add_price_suffix_price_inc_tax', 99, 4 );
 function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
-    $suffix = '<br><small>' . wc_price( wc_get_price_excluding_tax( $product ) ) . ' netto</small>';
+    $suffix = '<small> ' . wc_price( wc_get_price_excluding_tax( $product ) ) . ' netto</small>';
     return $suffix;
 }
