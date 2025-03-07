@@ -31,3 +31,18 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .ld-item-list-item .ld-item-list-item-preview .ld-item-name .ld-status-icon {
    margin-top: 0px !important;
 }
+
+/* Seperate VAT invoice fields from required fields on Checkout page */
+.top-border {
+   border-top: 1px #DADADA solid;
+   margin-top: 50px !important;
+   padding-top: 30px !important;
+}
+
+/* Fix selector height (eg. Country selector) on checkout page */
+.woocommerce-billing-fields__field-wrapper .select2-container .selection .select2-selection {
+   height: 58px !important;
+}
+.select2-selection__arrow {
+   height: 56px !important;
+}
