@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  Change Main Woocommerce Button for Courses to "Read More"
  */
