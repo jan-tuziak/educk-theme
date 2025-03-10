@@ -46,3 +46,8 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .select2-selection__arrow {
    height: 56px !important;
 }
+
+/* Hide "edit profile" link on My Account page */
+.ld-profile-summary .ld-profile-edit-link {
+   display: none;
+}
