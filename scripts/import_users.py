@@ -25,7 +25,7 @@ for index, row in df.iterrows():
     if row['Has Account'] is False:
         continue
     
-    f.write(f"echo \"Adding user {index+1} out of {num_of_rows}\"\n")
+    f.write(f"echo \"Adding user {index+1} out of {num_of_rows}: {row['Email']}\"\n")
     f.write(f"USER_ID=\"$(php8 /bin/wp user create {row['First Name'].replace(" ", "")}.{row['Last Name'].replace(" ", "")} {row['Email']} --porcelain)\"" + "\n")
     assign_meta_field(f, row['First Name'], "first_name")
     assign_meta_field(f, row['Last Name'], "last_name")
