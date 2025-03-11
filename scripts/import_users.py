@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('users_to_import.csv', dtype={'Billing Zip': 'str'})
+df = pd.read_csv('all_users.csv', encoding="utf-8", dtype={'Billing Zip': 'str'})
 df = df.reset_index() 
 
 course_ids = {
@@ -19,7 +19,7 @@ f = open("import_users.sh", "w")
 f.write("#!/bin/bash" + "\n")
 f.write("TIMESTAMP=\"$(date +%s)\"" + "\n")
 f.close()
-f = open("import_users.sh", "a")
+f = open("import_users.sh", "a", encoding="utf-8")
 num_of_rows = len(df.index)
 for index, row in df.iterrows():
     if row['Has Account'] is False:
