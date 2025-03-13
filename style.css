@@ -51,3 +51,8 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .ld-profile-summary .ld-profile-edit-link {
    display: none;
 }
+
+/* Make current lesson title yellow, when user is in focus mode (going through the course */
+.learndash-wrapper .ld-course-navigation .ld-lesson-item.ld-is-current-lesson .ld-lesson-title {
+   color: #ffc818 !important;
+}
