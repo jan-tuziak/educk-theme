@@ -4,6 +4,7 @@ $include_file = ($TLD === 'pl') ? 'include/pl.php' : 'include/org.php';
 include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
 include_once get_theme_file_path('include/woo.php');
+include_once get_theme_file_path('include/elementor-form-turnstile-handler.php');
 
 
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles');
