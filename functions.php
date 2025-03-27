@@ -1,5 +1,5 @@
 <?php
-$TLD = end(explode('.', parse_url($home_url)["host"])); // 'org' or 'pl'
+$TLD = end(explode(".", parse_url('http://' . $_SERVER['SERVER_NAME'], PHP_URL_HOST))); // 'org' or 'pl'
 $include_file = ($TLD === 'pl') ? 'include/pl.php' : 'include/org.php';
 include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
