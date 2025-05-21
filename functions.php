@@ -150,8 +150,9 @@ function educk_add_fbq_form_events_script() {
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-      jQuery(document).on('elementor-pro/form:submit-success', function(event, $form) {
-        const formElement = $form[0];
+      jQuery(document).on('elementor_pro/forms/form_submitted', function(event, $form) {
+        console.log('here');
+	const formElement = $form[0];
         const formId = formElement.getAttribute('id');
 
         if (formId === 'newsletter_signup') {
