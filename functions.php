@@ -150,7 +150,7 @@ function educk_add_fbq_form_events_script() {
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-      jQuery(document).on('elementor_pro/forms/form_submitted', function(event, $form) {
+      jQuery(document).on('submit_success', function(event, $form) {
         console.log('here');
 	const formElement = $form[0];
         const formId = formElement.getAttribute('id');
