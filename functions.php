@@ -151,15 +151,11 @@ function educk_add_fbq_form_events_script() {
     <script>
     document.addEventListener('DOMContentLoaded', function () {
       jQuery(document).on('submit_success', function(e) {
-	console.log('e');
-	console.log(e);
         const formId = e.target.id;
 
         if (formId === 'newsletter_signup') {
           fbq('trackCustom', 'NewsletterSignup');
-        } else {
-          fbq('track', 'Lead');
-        }
+        } 
       });
     });
     </script>
