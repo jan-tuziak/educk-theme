@@ -150,13 +150,14 @@ function educk_add_fbq_form_events_script() {
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-      jQuery(document).on('elementor:form:success', function(event, form) {
-        const formName = form.getAttribute('name');
+      jQuery(document).on('elementor-pro/form:submit-success', function(event, $form) {
+        const formElement = $form[0];
+        const formId = formElement.getAttribute('id');
 
-        if (formName === 'Newsletter Signup') {
+        if (formId === 'newsletter_signup') {
           fbq('trackCustom', 'NewsletterSignup');
         } else {
-          fbq('track', 'Contact');
+          fbq('track', 'Lead');
         }
       });
     });
@@ -164,3 +165,4 @@ function educk_add_fbq_form_events_script() {
     <?php
 }
 add_action('wp_footer', 'educk_add_fbq_form_events_script');
+
