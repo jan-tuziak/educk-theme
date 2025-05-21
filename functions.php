@@ -150,13 +150,10 @@ function educk_add_fbq_form_events_script() {
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-      jQuery(document).on('submit_success', function(event, $form) {
-        console.log('$form');
-	console.log($form);
-	console.log('event');
-	console.log(event);
-	const formElement = $form[0];
-        const formId = formElement.getAttribute('id');
+      jQuery(document).on('submit_success', function(e) {
+	console.log('e');
+	console.log(e);
+        const formId = e.target.id;
 
         if (formId === 'newsletter_signup') {
           fbq('trackCustom', 'NewsletterSignup');
