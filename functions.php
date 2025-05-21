@@ -138,10 +138,29 @@ function dyanmicCss() {
  * @compatible    WooCommerce 9
  * @community     https://businessbloomer.com/club/
  */
- add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
- function bbloomer_remove_payments_from_wp_sidebar_menu() {   
+add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
+function bbloomer_remove_payments_from_wp_sidebar_menu() {   
 	remove_menu_page( 'admin.php?page=wc-settings&tab=checkout' );
 	remove_menu_page( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ); 
 	remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
 	remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' ); 
- }
+}
+
+function educk_add_fbq_form_events_script() {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      jQuery(document).on('elementor:form:success', function(event, form) {
+        const formName = form.getAttribute('name');
+
+        if (formName === 'Newsletter Signup') {
+          fbq('trackCustom', 'NewsletterSignup');
+        } else {
+          fbq('track', 'Contact');
+        }
+      });
+    });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'educk_add_fbq_form_events_script');
