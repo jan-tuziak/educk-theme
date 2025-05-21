@@ -155,7 +155,9 @@ function educk_add_fbq_form_events_script() {
 
         if (formId === 'newsletter_signup') {
           fbq('trackCustom', 'NewsletterSignup');
-        } 
+        } else {
+          fbq('track', 'Contact');
+        }
       });
     });
     </script>
