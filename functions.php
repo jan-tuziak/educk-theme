@@ -83,13 +83,6 @@ function allow_all_consent(){
 }
 
 /**
- * Redirect to checkout after adding to cart
- **/
-add_filter ('woocommerce_add_to_cart_redirect', function( $url, $adding_to_cart ) {
-    return wc_get_checkout_url();
-}, 10, 2 ); 
-
-/**
  * @snippet       Remove Tax if Field Value - WooCommerce Checkout
  * @how-to        businessbloomer.com/woocommerce-customization
  * @author        Rodolfo Melogli, Business Bloomer, BusinessBloomer.com
