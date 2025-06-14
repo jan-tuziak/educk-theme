@@ -106,21 +106,6 @@ function dyanmicCss() {
     }
 }
 
-/**
- * @snippet       Remove "Payments" Tab | WordPress Dashboard
- * @tutorial      Get CustomizeWoo.com FREE
- * @author        Rodolfo Melogli, Business Bloomer
- * @compatible    WooCommerce 9
- * @community     https://businessbloomer.com/club/
- */
-add_action( 'admin_menu', 'bbloomer_remove_payments_from_wp_sidebar_menu', 9999 );
-function bbloomer_remove_payments_from_wp_sidebar_menu() {   
-	remove_menu_page( 'admin.php?page=wc-settings&tab=checkout' );
-	remove_menu_page( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ); 
-	remove_menu_page( 'admin.php?page=wc-admin&task=payments' ); 
-	remove_menu_page( 'admin.php?page=wc-admin&task=woocommerce-payments' ); 
-}
-
 function educk_add_fbq_form_events_script() {
     ?>
     <script>
