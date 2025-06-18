@@ -113,8 +113,10 @@ function educk_add_fbq_form_events_script() {
       jQuery(document).on('submit_success', function(e) {
         const formId = e.target.id;
 
-        if (formId === 'newsletter_signup') {
-          fbq('trackCustom', 'NewsletterSignup');
+        if (formId === 'new_subscriber') {
+          fbq('track', 'Lead');
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({'event': 'new_subscriber'});
         } else {
           fbq('track', 'Contact');
         }
