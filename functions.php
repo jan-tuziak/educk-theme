@@ -112,13 +112,13 @@ function educk_add_fbq_form_events_script() {
     document.addEventListener('DOMContentLoaded', function () {
       jQuery(document).on('submit_success', function(e) {
         const formId = e.target.id;
-
+	window.dataLayer = window.dataLayer || [];
         if (formId === 'new_subscriber') {
-          fbq('track', 'Lead');
-          window.dataLayer = window.dataLayer || [];
+          //fbq('track', 'Lead');
           window.dataLayer.push({'event': 'new_subscriber'});
         } else {
-          fbq('track', 'Contact');
+          //fbq('track', 'Contact');
+	  window.dataLayer.push({'event': 'form_submit_successful'});
         }
       });
     });
