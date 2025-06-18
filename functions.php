@@ -114,10 +114,8 @@ function educk_add_fbq_form_events_script() {
         const formId = e.target.id;
 	window.dataLayer = window.dataLayer || [];
         if (formId === 'new_subscriber') {
-          //fbq('track', 'Lead');
           window.dataLayer.push({'event': 'new_subscriber'});
         } else {
-          //fbq('track', 'Contact');
 	  window.dataLayer.push({'event': 'form_submit_successful'});
         }
       });
