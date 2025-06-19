@@ -138,7 +138,6 @@ function datalayer_login_events() {
     document.addEventListener('DOMContentLoaded', function () {
       jQuery(document).on('submit_success', function(e) {
         const formId = e.target.id;
-	alert(formId);
 	// window.dataLayer = window.dataLayer || [];
  //        if (formId === 'registerform') {
  //          window.dataLayer.push({'event': 'registration_complete'});
