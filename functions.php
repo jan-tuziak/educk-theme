@@ -127,26 +127,3 @@ function educk_add_fbq_form_events_script() {
     <?php
 }
 add_action('wp_footer', 'educk_add_fbq_form_events_script');
-
-
-/**
- * send events to dataLayer when users are registering and logging in 
- **/
-function datalayer_login_events() {
-    ?>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      jQuery(document).on('submit_success', function(e) {
-        const formId = e.target.id;
-	// window.dataLayer = window.dataLayer || [];
- //        if (formId === 'registerform') {
- //          window.dataLayer.push({'event': 'registration_complete'});
- //        } else {
-	//   window.dataLayer.push({'event': 'login_complete'});
- //        }
-      });
-    });
-    </script>
-    <?php
-}
-add_action( 'login_footer', 'datalayer_login_events' );
