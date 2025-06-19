@@ -138,12 +138,13 @@ function datalayer_login_events() {
     document.addEventListener('DOMContentLoaded', function () {
       jQuery(document).on('submit_success', function(e) {
         const formId = e.target.id;
-	window.dataLayer = window.dataLayer || [];
-        if (formId === 'registerform') {
-          window.dataLayer.push({'event': 'registration_complete'});
-        } else {
-	  window.dataLayer.push({'event': 'login_complete'});
-        }
+	console.log(formId);
+	// window.dataLayer = window.dataLayer || [];
+ //        if (formId === 'registerform') {
+ //          window.dataLayer.push({'event': 'registration_complete'});
+ //        } else {
+	//   window.dataLayer.push({'event': 'login_complete'});
+ //        }
       });
     });
     </script>
