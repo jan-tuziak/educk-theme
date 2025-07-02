@@ -74,7 +74,9 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
 
 
 
-
+// check out these resources:
+// https://www.businessbloomer.com/woocommerce-add-custom-checkout-field-php/
+// https://www.businessbloomer.com/woocommerce-hide-checkout-billing-fields-if-virtual-product-cart/
 
 
 
