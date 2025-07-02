@@ -116,11 +116,11 @@ function bbloomer_conditionally_hide_show_new_field() {
     jQuery('input#checkbox_vat_invoice').change(function() {
         if (! this.checked) {
             // HIDE IF NOT CHECKED
-            jQuery(`#billing_company_field`).fadeOut();
-            jQuery(`#billing_company_field input`).val('');         
+            jQuery(`#billing_tax_no_field`).fadeOut();
+            jQuery(`#billing_tax_no_field input`).val('');         
         } else {
             // SHOW IF CHECKED
-            jQuery(`#billing_company_field`).fadeIn();
+            jQuery(`#billing_tax_no_field`).fadeIn();
         }
     }).change();
   "); 
