@@ -115,12 +115,12 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['billing_first_name']['priority'] = 2;
     $fields['billing']['billing_last_name']['priority'] = 3;
     $fields['billing']['billing_country']['priority'] = 4;
+    $fields['billing']['billing_postcode']['priority'] = 9;
     
     $fields['billing']['checkbox_vat_invoice']['priority'] = 5;
     $fields['billing']['billing_tax_no']['priority'] = 6;
     $fields['billing']['billing_company']['priority'] = 7;
     $fields['billing']['billing_address_1']['priority'] = 8;
-    $fields['billing']['billing_postcode']['priority'] = 9;
     $fields['billing']['billing_city']['priority'] = 10;
 	return $fields;
 }
