@@ -128,7 +128,7 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
 	return $fields;
 }
 
-add_filter( 'woocommerce_default_address_fields', 'customising_checkout_fields', 1000, 1 );
+add_filter( 'woocommerce_default_address_fields', 'customising_checkout_fields' );
 function customising_checkout_fields( $address_fields ) {
     $address_fields['first_name']['required'] = true;
     $address_fields['last_name']['required'] = true;
