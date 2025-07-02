@@ -56,3 +56,7 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .learndash-wrapper .ld-course-navigation .ld-lesson-item.ld-is-current-lesson .ld-lesson-title {
    color: #ffc818 !important;
 }
+
+.woocommerce form .woocommerce-billing-fields .form-row .optional {
+   display: none;
+}
