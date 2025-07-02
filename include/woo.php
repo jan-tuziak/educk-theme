@@ -194,7 +194,7 @@ function validate_new_checkout_field() {
         }
 
         if ( empty( $_POST['billing_address_1'] ) ) {
-            wc_add_notice( 'Podaj proszę ulicę swojej firmy', 'error' );
+            wc_add_notice( 'Podaj proszę adres swojej firmy', 'error' );
         }
 
         if ( empty( $_POST['billing_city'] ) ) {

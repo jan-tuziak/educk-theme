@@ -60,3 +60,7 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 .woocommerce form .woocommerce-billing-fields .form-row .optional {
    display: none;
 }
+
+#checkbox_vat_invoice {
+   height: 100px;
+}
