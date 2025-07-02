@@ -144,6 +144,12 @@ function customising_checkout_fields( $address_fields ) {
     return $address_fields;
 }
 
+add_filter( 'woocommerce_default_address_fields' , 'bbloomer_override_postcode_validation' );
+function bbloomer_override_postcode_validation( $address_fields ) {
+    $address_fields['postcode']['required'] = false;
+    return $address_fields;
+}
+
 // add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
 // function custom_override_default_locale_fields( $fields ) {
 //     $fields['address_1']['priority'] = 8;
