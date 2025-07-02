@@ -94,12 +94,12 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
 	    'clear'     => true
 	);   
 	    
-	// $fields['billing']['billing_tax_no'] = array(
-	//     'label'     => __('NIP', 'woocommerce'),
-	//     'placeholder'   => _x('1234567890', 'placeholder', 'woocommerce'),
-	//     'class'     => array('form-row-wide'),
-	//     'clear'     => true
-	// );
+	$fields['billing']['billing_tax_no'] = array(
+	    'label'     => __('NIP', 'woocommerce'),
+	    'placeholder'   => _x('1234567890', 'placeholder', 'woocommerce'),
+	    'class'     => array('form-row-wide'),
+	    'clear'     => true
+	);
 	return $fields;
 }
   
