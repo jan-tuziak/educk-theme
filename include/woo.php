@@ -87,7 +87,14 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
  */
 add_filter( 'woocommerce_checkout_fields' , 'bbloomer_display_checkbox_and_new_checkout_field' );
 function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
-	$fields['billing']['checkbox_vat_invoice'] = array(
+    set($fields['billing']['billing_company']);
+    set($fields['billing']['billing_address_1']);
+    set($fields['billing']['billing_address_2']);
+    set($fields['billing']['billing_city']);
+    set($fields['billing']['billing_postcode']);
+    set($fields['billing']['billing_state']);
+    
+    $fields['billing']['checkbox_vat_invoice'] = array(
 	    'type'      => 'checkbox',
 	    'label'     => __('Chcę otrzymać fakturę VAT', 'woocommerce'),
 	    'class'     => array('form-row-wide'),
@@ -106,17 +113,18 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
 add_action( 'woocommerce_after_checkout_form', 'bbloomer_conditionally_hide_show_new_field', 9999 );
 function bbloomer_conditionally_hide_show_new_field() {
   wc_enqueue_js( "
-      jQuery('input#checkbox_vat_invoice').change(function(){
-           
-         if (! this.checked) {
-            // HIDE IF NOT CHECKED
-            jQuery('#billing_tax_no_field').fadeOut();
-            jQuery('#billing_tax_no_field input').val('');         
-         } else {
-            // SHOW IF CHECKED
-            jQuery('#billing_tax_no_field').fadeIn();
-         }
-           
-      }).change();
+    jQuery('input#checkbox_vat_invoice').change(function() {
+        fields_to_hide = new Array('billing_company', 'billing_address_1', 'billing_address_2', 'billing_city', 'billing_postcode', 'billing_state', 'billing_tax_no');
+        fields_to_hide.forEach((field) => {
+            if (! this.checked) {
+                // HIDE IF NOT CHECKED
+                jQuery(`#{field}_field`).fadeOut();
+                jQuery(`#{field}_field input`).val('');         
+            } else {
+                // SHOW IF CHECKED
+                jQuery(`#{field}_field`).fadeIn();
+            }
+        });
+    }).change();
   "); 
 }
