@@ -70,35 +70,35 @@ function enqueue_learndash_styles(){
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_learndash_styles' );
 
-/**
- * @snippet       Remove Tax if Field Value - WooCommerce Checkout
- * @how-to        businessbloomer.com/woocommerce-customization
- * @author        Rodolfo Melogli, Business Bloomer, BusinessBloomer.com
- * @testedwith    WooCommerce 8
- * @community     https://businessbloomer.com/club/
- */
-add_action( 'woocommerce_checkout_update_order_review', 'bbloomer_taxexempt_checkout_based_on_country' );
-function bbloomer_taxexempt_checkout_based_on_country( $post_data ) {
-        WC()->customer->set_is_vat_exempt( false );
-        parse_str( $post_data, $output );
-        if ( $output['billing_country'] !== 'PL' && $output['billing_tax_no'] !== '' && $output['billing_company_name'] !== '' ){
-			WC()->customer->set_is_vat_exempt( true );
-		} 
-}
+// /**
+//  * @snippet       Remove Tax if Field Value - WooCommerce Checkout
+//  * @how-to        businessbloomer.com/woocommerce-customization
+//  * @author        Rodolfo Melogli, Business Bloomer, BusinessBloomer.com
+//  * @testedwith    WooCommerce 8
+//  * @community     https://businessbloomer.com/club/
+//  */
+// add_action( 'woocommerce_checkout_update_order_review', 'bbloomer_taxexempt_checkout_based_on_country' );
+// function bbloomer_taxexempt_checkout_based_on_country( $post_data ) {
+//         WC()->customer->set_is_vat_exempt( false );
+//         parse_str( $post_data, $output );
+//         if ( $output['billing_country'] !== 'PL' && $output['billing_tax_no'] !== '' && $output['billing_company_name'] !== '' ){
+// 			WC()->customer->set_is_vat_exempt( true );
+// 		} 
+// }
 
-/**
- * @snippet       Refresh Checkout Upon Input Field Change
- * @how-to        businessbloomer.com/woocommerce-customization
- * @author        Rodolfo Melogli, Business Bloomer
- * @compatible    WooCommerce 7
- * @community     https://businessbloomer.com/club/
- */
-add_filter( 'woocommerce_checkout_fields', 'bbloomer_checkout_fields_trigger_refresh', 9999 );
-function bbloomer_checkout_fields_trigger_refresh( $fields ) {
-   $fields['billing']['billing_company_name']['class'][] = 'update_totals_on_change';
-   $fields['billing']['billing_tax_no']['class'][] = 'update_totals_on_change';  
-   return $fields;
-}
+// /**
+//  * @snippet       Refresh Checkout Upon Input Field Change
+//  * @how-to        businessbloomer.com/woocommerce-customization
+//  * @author        Rodolfo Melogli, Business Bloomer
+//  * @compatible    WooCommerce 7
+//  * @community     https://businessbloomer.com/club/
+//  */
+// add_filter( 'woocommerce_checkout_fields', 'bbloomer_checkout_fields_trigger_refresh', 9999 );
+// function bbloomer_checkout_fields_trigger_refresh( $fields ) {
+//    $fields['billing']['billing_company_name']['class'][] = 'update_totals_on_change';
+//    $fields['billing']['billing_tax_no']['class'][] = 'update_totals_on_change';  
+//    return $fields;
+// }
 
 /**
  * Dynamically add CSS classes if user is logged in or out
