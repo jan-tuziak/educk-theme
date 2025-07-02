@@ -24,8 +24,8 @@ function replace_loop_add_to_cart_button( $button, $product  ) {
  * @compatible    WooCommerce 7
  * @community     https://businessbloomer.com/club/
  */
-add_filter( 'woocommerce_get_price_suffix', 'bbloomer_add_price_suffix_price_inc_tax', 99, 4 );
-function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
+add_filter( 'woocommerce_get_price_suffix', 'add_price_suffix_price_inc_tax', 99, 4 );
+function add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
     $suffix = '<small> ' . wc_price( wc_get_price_excluding_tax( $product ) ) . ' ' . EDUCK_NET .'</small>';
     return $suffix;
 }
@@ -44,8 +44,8 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
  * @compatible    WC 4.1
  * @community     https://businessbloomer.com/club/
  */
-add_filter( 'woocommerce_checkout_fields' , 'bbloomer_display_checkbox_and_new_checkout_field' );
-function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
+add_filter( 'woocommerce_checkout_fields' , 'display_checkbox_and_new_checkout_field' );
+function display_checkbox_and_new_checkout_field( $fields ) {
     unset($fields['billing']['billing_address_2']);
     unset($fields['billing']['billing_state']);
     unset($fields['billing']['billing_phone']);
@@ -104,8 +104,8 @@ function customising_checkout_fields( $address_fields ) {
     return $address_fields;
 }
   
-add_action( 'woocommerce_after_checkout_form', 'bbloomer_conditionally_hide_show_new_field', 9999 );
-function bbloomer_conditionally_hide_show_new_field() {
+add_action( 'woocommerce_after_checkout_form', 'conditionally_hide_show_new_field', 9999 );
+function conditionally_hide_show_new_field() {
   wc_enqueue_js( "
     jQuery('input#checkbox_vat_invoice').change(function() {
         if (! this.checked) {
@@ -159,4 +159,25 @@ function validate_new_checkout_field() {
             wc_add_notice( 'Podaj proszę kod pocztowy swojej firmy', 'error' );
         }
     }
+}
+
+add_action( 'woocommerce_checkout_update_order_meta', 'save_new_checkout_field' );
+function save_new_checkout_field( $order_id ) { 
+    if ( $_POST['billing_tax_no'] ) update_post_meta( $order_id, '_billing_tax_no', esc_attr( $_POST['billing_tax_no'] ) );
+}
+ 
+add_action( 'woocommerce_thankyou', 'show_new_checkout_field_thankyou' );
+function show_new_checkout_field_thankyou( $order_id ) {    
+    if ( get_post_meta( $order_id, '_billing_tax_no', true ) ) echo '<p><strong>NIP:</strong> ' . get_post_meta( $order_id, '_billing_tax_no', true ) . '</p>';
+}
+  
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'show_new_checkout_field_order' );
+function show_new_checkout_field_order( $order ) {    
+    $order_id = $order->get_id();
+    if ( get_post_meta( $order_id, '_billing_tax_no', true ) ) echo '<p><strong>NIP:</strong> ' . get_post_meta( $order_id, '_billing_tax_no', true ) . '</p>';
+}
+ 
+add_action( 'woocommerce_email_after_order_table', 'show_new_checkout_field_emails', 20, 4 );
+function show_new_checkout_field_emails( $order, $sent_to_admin, $plain_text, $email ) {
+    if ( get_post_meta( $order->get_id(), '_billing_tax_no', true ) ) echo '<p><strong>NIP:</strong> ' . get_post_meta( $order->get_id(), '_billing_tax_no', true ) . '</p>';
 }
