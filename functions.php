@@ -12,8 +12,9 @@ function theme_enqueue_styles() {
 	//Skipping parent style, because it was messing up headings on Blog posts
 	//wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
         //wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style') );
-	
-        wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css');
+
+	// using filemtime() for versioning to make sure new style.css is properly progated, and not omitted by cache
+        wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array(), filemtime(get_stylesheet_directory() . "/style.css" ) );
 }
 
 /**
