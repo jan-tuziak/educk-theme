@@ -97,6 +97,7 @@ add_filter( 'woocommerce_checkout_fields', 'bbloomer_checkout_fields_trigger_ref
 function bbloomer_checkout_fields_trigger_refresh( $fields ) {
    $fields['billing']['billing_country']['class'][] = 'update_totals_on_change';
    $fields['billing']['billing_tax_no']['class'][] = 'update_totals_on_change';  
+   $fields['billing']['billing_company']['class'][] = 'update_totals_on_change';  
    return $fields;
 }
 
