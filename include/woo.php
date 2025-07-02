@@ -115,18 +115,19 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['billing_last_name']['priority'] = 3;
     $fields['billing']['billing_country']['priority'] = 4;
     $fields['billing']['billing_postcode']['priority'] = 5;
+    $fields['billing']['billing_tax_no']['priority'] = 6;
     
-    $fields['billing']['billing_company']['priority'] = 6;
-    $fields['billing']['billing_state']['priority'] = 7;
-    $fields['billing']['billing_address_1']['priority'] = 8;
-    $fields['billing']['billing_city']['priority'] = 9;
+    $fields['billing']['billing_company']['priority'] = 7;
+    $fields['billing']['billing_state']['priority'] = 8;
+    $fields['billing']['billing_address_1']['priority'] = 9;
+    $fields['billing']['billing_city']['priority'] = 10;
 	return $fields;
 }
 
 add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
 function custom_override_default_locale_fields( $fields ) {
-    $fields['state']['priority'] = 7;
-    $fields['address_1']['priority'] = 8;
+    $fields['state']['priority'] = 8;
+    $fields['address_1']['priority'] = 9;
     return $fields;
 }
   
