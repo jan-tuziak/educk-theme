@@ -118,11 +118,11 @@ function bbloomer_conditionally_hide_show_new_field() {
         fields_to_hide.forEach((field) => {
             if (! this.checked) {
                 // HIDE IF NOT CHECKED
-                jQuery(`#{field}_field`).fadeOut();
-                jQuery(`#{field}_field input`).val('');         
+                jQuery(`#${field}_field`).fadeOut();
+                jQuery(`#${field}_field input`).val('');         
             } else {
                 // SHOW IF CHECKED
-                jQuery(`#{field}_field`).fadeIn();
+                jQuery(`#${field}_field`).fadeIn();
             }
         });
     }).change();
