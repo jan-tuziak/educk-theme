@@ -79,6 +79,9 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
 // https://www.businessbloomer.com/woocommerce-hide-checkout-billing-fields-if-virtual-product-cart/
 
 
+// remember that you can modify checkout fields visibility in theme's modify window.
+
+
 
 /**
  * @snippet       Add a Checkbox to Hide/Show Checkout Field - WooCommerce
