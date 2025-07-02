@@ -96,9 +96,9 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     unset($fields['billing']['billing_state']);
     unset($fields['billing']['billing_phone']);
     
-    $fields['billing']['billing_postcode']['required'] = false;
-    $fields['shipping']['shipping_postcode']['required'] = false;
-
+    unset($fields['billing']['billing_postcode']['validate']);
+    unset($fields['shipping']['shipping_postcode']['validate']);
+    
     $fields['billing']['checkbox_vat_invoice'] = array(
 	    'type'      => 'checkbox',
 	    'label'     => __('Chcę otrzymać fakturę VAT', 'woocommerce'),
