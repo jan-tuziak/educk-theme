@@ -135,7 +135,7 @@ add_filter( 'woocommerce_default_address_fields', 'customising_checkout_fields' 
 function customising_checkout_fields( $address_fields ) {
     $address_fields['first_name']['required'] = true;
     $address_fields['last_name']['required'] = true;
-    $address_fields['country']['required'] = true;
+    $address_fields['country']['required'] = false;
 
     $address_fields['company']['required'] = false;
     $address_fields['city']['required'] = false;
