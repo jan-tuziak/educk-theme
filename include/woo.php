@@ -122,13 +122,13 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['checkbox_vat_invoice']['priority'] = 5;
     $fields['billing']['billing_tax_no']['priority'] = 6;
     $fields['billing']['billing_company']['priority'] = 7;
-    // $fields['billing']['billing_company']['required'] = false;
+    $fields['billing']['billing_company']['required'] = false;
     $fields['billing']['billing_address_1']['priority'] = 8;
-    // $fields['billing']['billing_address_1']['required'] = false;
+    $fields['billing']['billing_address_1']['required'] = false;
     $fields['billing']['billing_postcode']['priority'] = 9;
-    // $fields['billing']['billing_postcode']['required'] = false;
+    $fields['billing']['billing_postcode']['required'] = false;
     $fields['billing']['billing_city']['priority'] = 10;
-    // $fields['billing']['billing_city']['required'] = false;
+    $fields['billing']['billing_city']['required'] = false;
 	return $fields;
 }
 
