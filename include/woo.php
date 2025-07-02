@@ -94,9 +94,9 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
 	    'clear'     => true
 	);   
 	    
-	// $fields['billing']['new_billing_field'] = array(
-	//     'label'     => __('New Billing Field Label', 'woocommerce'),
-	//     'placeholder'   => _x('New Billing Field Placeholder', 'placeholder', 'woocommerce'),
+	// $fields['billing']['billing_tax_no'] = array(
+	//     'label'     => __('NIP', 'woocommerce'),
+	//     'placeholder'   => _x('1234567890', 'placeholder', 'woocommerce'),
 	//     'class'     => array('form-row-wide'),
 	//     'clear'     => true
 	// );
@@ -110,11 +110,11 @@ function bbloomer_conditionally_hide_show_new_field() {
            
          if (! this.checked) {
             // HIDE IF NOT CHECKED
-            jQuery('#billing_company_field').fadeOut();
-            jQuery('#billing_company_field input').val('');         
+            jQuery('#billing_tax_no_field').fadeOut();
+            jQuery('#billing_tax_no_field input').val('');         
          } else {
             // SHOW IF CHECKED
-            jQuery('#billing_company_field').fadeIn();
+            jQuery('#billing_tax_no_field').fadeIn();
          }
            
       }).change();
