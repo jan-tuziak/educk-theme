@@ -133,11 +133,13 @@ function customising_checkout_fields( $address_fields ) {
     $address_fields['first_name']['required'] = true;
     $address_fields['last_name']['required'] = true;
     $address_fields['country']['required'] = true;
-    
+
     $address_fields['company']['required'] = false;
     $address_fields['city']['required'] = false;
     $address_fields['state']['required'] = false;
     $address_fields['postcode']['required'] = false;
+    $address_fields['address_1']['required'] = false;
+    $address_fields['address_2']['required'] = false;
 
     return $address_fields;
 }
