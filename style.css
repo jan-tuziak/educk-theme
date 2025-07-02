@@ -57,10 +57,12 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
    color: #ffc818 !important;
 }
 
+/* Hide the `(optional)` labels next to optional fields */
 .woocommerce form .woocommerce-billing-fields .form-row .optional {
    display: none;
 }
 
+/* Make the VAT Invoice more noticeable */
 #checkbox_vat_invoice {
-   height: 100px;
+   height: 80px;
 }
