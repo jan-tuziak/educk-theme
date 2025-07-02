@@ -141,6 +141,7 @@ function customising_checkout_fields( $address_fields ) {
     $address_fields['city']['required'] = false;
     $address_fields['state']['required'] = false;
     $address_fields['postcode']['required'] = false;
+    $address_fields['billing_postcode']['required'] = false;
     $address_fields['address_1']['required'] = false;
     $address_fields['address_2']['required'] = false;
 
