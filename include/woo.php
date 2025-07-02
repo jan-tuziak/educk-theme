@@ -93,6 +93,7 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
 add_filter( 'woocommerce_checkout_fields' , 'bbloomer_display_checkbox_and_new_checkout_field' );
 function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     unset($fields['billing']['billing_address_2']);
+    unset($fields['billing']['billing_state']);
     unset($fields['billing']['billing_phone']);
     
     $fields['billing']['checkbox_vat_invoice'] = array(
@@ -119,16 +120,14 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['checkbox_vat_invoice']['priority'] = 6;
     $fields['billing']['billing_tax_no']['priority'] = 7;
     $fields['billing']['billing_company']['priority'] = 8;
-    $fields['billing']['billing_state']['priority'] = 9;
-    $fields['billing']['billing_address_1']['priority'] = 10;
-    $fields['billing']['billing_city']['priority'] = 11;
+    $fields['billing']['billing_address_1']['priority'] = 9;
+    $fields['billing']['billing_city']['priority'] = 10;
 	return $fields;
 }
 
 add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
 function custom_override_default_locale_fields( $fields ) {
-    $fields['state']['priority'] = 9;
-    $fields['address_1']['priority'] = 10;
+    $fields['address_1']['priority'] = 9;
     return $fields;
 }
   
