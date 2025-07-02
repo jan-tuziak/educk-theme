@@ -114,17 +114,14 @@ add_action( 'woocommerce_after_checkout_form', 'bbloomer_conditionally_hide_show
 function bbloomer_conditionally_hide_show_new_field() {
   wc_enqueue_js( "
     jQuery('input#checkbox_vat_invoice').change(function() {
-        fields_to_hide = new Array('billing_company', 'billing_address_1', 'billing_address_2', 'billing_city', 'billing_postcode', 'billing_state', 'billing_tax_no');
-        fields_to_hide.forEach((field) => {
-            if (! this.checked) {
-                // HIDE IF NOT CHECKED
-                jQuery(`#${field}_field`).fadeOut();
-                jQuery(`#${field}_field input`).val('');         
-            } else {
-                // SHOW IF CHECKED
-                jQuery(`#${field}_field`).fadeIn();
-            }
-        });
+        if (! this.checked) {
+            // HIDE IF NOT CHECKED
+            jQuery(`#billing_company_field`).fadeOut();
+            jQuery(`#billing_company_field input`).val('');         
+        } else {
+            // SHOW IF CHECKED
+            jQuery(`#billing_company_field`).fadeIn();
+        }
     }).change();
   "); 
 }
