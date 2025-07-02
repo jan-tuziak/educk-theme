@@ -87,12 +87,12 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
  */
 add_filter( 'woocommerce_checkout_fields' , 'bbloomer_display_checkbox_and_new_checkout_field' );
 function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
-    set($fields['billing']['billing_company']);
-    set($fields['billing']['billing_address_1']);
-    set($fields['billing']['billing_address_2']);
-    set($fields['billing']['billing_city']);
-    set($fields['billing']['billing_postcode']);
-    set($fields['billing']['billing_state']);
+    // set($fields['billing']['billing_company']);
+    // set($fields['billing']['billing_address_1']);
+    // set($fields['billing']['billing_address_2']);
+    // set($fields['billing']['billing_city']);
+    // set($fields['billing']['billing_postcode']);
+    // set($fields['billing']['billing_state']);
     
     $fields['billing']['checkbox_vat_invoice'] = array(
 	    'type'      => 'checkbox',
