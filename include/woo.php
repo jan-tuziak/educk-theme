@@ -206,5 +206,3 @@ function validate_new_checkout_field() {
         }
     }
 }
-
-add_filter( 'woocommerce_enable_order_notes_field', '__return_false', 9999 );
