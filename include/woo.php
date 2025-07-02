@@ -128,6 +128,14 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['billing_phone']['priority'] = 11;
 	return $fields;
 }
+
+add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
+function custom_override_default_locale_fields( $fields ) {
+    $fields['state']['priority'] = 7;
+    $fields['address_1']['priority'] = 8;
+    $fields['address_2']['priority'] = 9;
+    return $fields;
+}
   
 add_action( 'woocommerce_after_checkout_form', 'bbloomer_conditionally_hide_show_new_field', 9999 );
 function bbloomer_conditionally_hide_show_new_field() {
