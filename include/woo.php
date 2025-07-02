@@ -148,6 +148,8 @@ function bbloomer_conditionally_hide_show_new_field() {
             jQuery(`#billing_address_1_field input`).val('');         
             jQuery(`#billing_city_field`).fadeOut();
             jQuery(`#billing_city_field input`).val('');         
+            jQuery(`#billing_postcode_field`).fadeOut();
+            jQuery(`#billing_postcode_field input`).val('');         
         } else {
             // SHOW IF CHECKED
             jQuery(`#billing_tax_no_field`).fadeIn();
@@ -155,6 +157,7 @@ function bbloomer_conditionally_hide_show_new_field() {
             jQuery(`#billing_state_field`).fadeIn();
             jQuery(`#billing_address_1_field`).fadeIn();
             jQuery(`#billing_city_field`).fadeIn();
+            jQuery(`#billing_postcode_field`).fadeIn();
         }
     }).change();
   "); 
