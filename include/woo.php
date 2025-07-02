@@ -96,6 +96,9 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     unset($fields['billing']['billing_state']);
     unset($fields['billing']['billing_phone']);
     
+    $fields['billing']['billing_postcode']['required'] = false;
+    $fields['shipping']['shipping_postcode']['required'] = false;
+
     $fields['billing']['checkbox_vat_invoice'] = array(
 	    'type'      => 'checkbox',
 	    'label'     => __('Chcę otrzymać fakturę VAT', 'woocommerce'),
@@ -141,12 +144,6 @@ function customising_checkout_fields( $address_fields ) {
     $address_fields['address_1']['required'] = false;
     $address_fields['address_2']['required'] = false;
 
-    return $address_fields;
-}
-
-add_filter( 'woocommerce_default_address_fields' , 'bbloomer_override_postcode_validation' );
-function bbloomer_override_postcode_validation( $address_fields ) {
-    $address_fields['postcode']['required'] = false;
     return $address_fields;
 }
 
