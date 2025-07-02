@@ -115,9 +115,9 @@ function bbloomer_display_checkbox_and_new_checkout_field( $fields ) {
     $fields['billing']['billing_last_name']['priority'] = 3;
     $fields['billing']['billing_country']['priority'] = 4;
     $fields['billing']['billing_postcode']['priority'] = 5;
+    
     $fields['billing']['checkbox_vat_invoice']['priority'] = 6;
     $fields['billing']['billing_tax_no']['priority'] = 7;
-    
     $fields['billing']['billing_company']['priority'] = 8;
     $fields['billing']['billing_state']['priority'] = 9;
     $fields['billing']['billing_address_1']['priority'] = 10;
@@ -140,9 +140,21 @@ function bbloomer_conditionally_hide_show_new_field() {
             // HIDE IF NOT CHECKED
             jQuery(`#billing_tax_no_field`).fadeOut();
             jQuery(`#billing_tax_no_field input`).val('');         
+            jQuery(`#billing_company_field`).fadeOut();
+            jQuery(`#billing_company_field input`).val('');         
+            jQuery(`#billing_state_field`).fadeOut();
+            jQuery(`#billing_state_field input`).val('');         
+            jQuery(`#billing_address_1_field`).fadeOut();
+            jQuery(`#billing_address_1_field input`).val('');         
+            jQuery(`#billing_city_field`).fadeOut();
+            jQuery(`#billing_city_field input`).val('');         
         } else {
             // SHOW IF CHECKED
             jQuery(`#billing_tax_no_field`).fadeIn();
+            jQuery(`#billing_company_field`).fadeIn();
+            jQuery(`#billing_state_field`).fadeIn();
+            jQuery(`#billing_address_1_field`).fadeIn();
+            jQuery(`#billing_city_field`).fadeIn();
         }
     }).change();
   "); 
