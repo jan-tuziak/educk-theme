@@ -176,9 +176,9 @@ function show_new_checkout_field_emails( $order, $sent_to_admin, $plain_text, $e
     if ( get_post_meta( $order->get_id(), '_billing_tax_no', true ) ) echo '<p><strong>NIP:</strong> ' . get_post_meta( $order->get_id(), '_billing_tax_no', true ) . '</p>';
 }
 
-add_action('woocommerce_process_shop_order_meta', 'educk_save_nip_admin_edit');
-function educk_save_nip_admin_edit($order_id){
-    if (isset($_POST['billing_tax_no'])) {
-        update_post_meta($order_id, 'billing_tax_no', sanitize_text_field($_POST['billing_tax_no']));
-    }
-}
+// add_action('woocommerce_process_shop_order_meta', 'educk_save_nip_admin_edit');
+// function educk_save_nip_admin_edit($order_id){
+//     if (isset($_POST['billing_tax_no'])) {
+//         update_post_meta($order_id, 'billing_tax_no', sanitize_text_field($_POST['billing_tax_no']));
+//     }
+// }
