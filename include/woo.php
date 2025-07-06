@@ -19,10 +19,6 @@ function replace_loop_add_to_cart_button( $button, $product  ) {
 
 /**
  * @snippet       Prices Incl + Excl Tax | WooCommerce Shop
- * @how-to        businessbloomer.com/woocommerce-customization
- * @author        Rodolfo Melogli, Business Bloomer
- * @compatible    WooCommerce 7
- * @community     https://businessbloomer.com/club/
  */
 add_filter( 'woocommerce_get_price_suffix', 'add_price_suffix_price_inc_tax', 99, 4 );
 function add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
@@ -39,10 +35,6 @@ function add_price_suffix_price_inc_tax( $suffix, $product, $price, $qty ){
 
 /**
  * @snippet       Add a Checkbox to Hide/Show Checkout Field - WooCommerce
- * @how-to        businessbloomer.com/woocommerce-customization
- * @author        Rodolfo Melogli, Business Bloomer
- * @compatible    WC 4.1
- * @community     https://businessbloomer.com/club/
  */
 add_filter( 'woocommerce_checkout_fields' , 'display_checkbox_and_new_checkout_field' );
 function display_checkbox_and_new_checkout_field( $fields ) {
@@ -180,4 +172,11 @@ function show_new_checkout_field_order( $order ) {
 add_action( 'woocommerce_email_after_order_table', 'show_new_checkout_field_emails', 20, 4 );
 function show_new_checkout_field_emails( $order, $sent_to_admin, $plain_text, $email ) {
     if ( get_post_meta( $order->get_id(), '_billing_tax_no', true ) ) echo '<p><strong>NIP:</strong> ' . get_post_meta( $order->get_id(), '_billing_tax_no', true ) . '</p>';
+}
+
+add_action('woocommerce_process_shop_order_meta', 'educk_save_nip_admin_edit');
+function educk_save_nip_admin_edit($order_id){
+    if (isset($_POST['billing_tax_no'])) {
+        update_post_meta($order_id, 'billing_tax_no', sanitize_text_field($_POST['billing_tax_no']));
+    }
 }
