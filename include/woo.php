@@ -158,6 +158,10 @@ function save_new_checkout_field( $order_id ) {
     if (!empty($_POST['billing_tax_no'])) {
         update_post_meta($order_id, 'billing_tax_no', sanitize_text_field($_POST['billing_tax_no']));
     }
+
+    if (!empty($_POST['billing_company'])) {
+        update_post_meta($order_id, 'billing_company', sanitize_text_field($_POST['billing_company']));
+    }
 }
  
 add_action( 'woocommerce_thankyou', 'show_new_checkout_field_thankyou' );
