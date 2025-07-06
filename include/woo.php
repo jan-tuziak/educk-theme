@@ -160,7 +160,7 @@ function save_new_checkout_field( $order_id ) {
     }
 
     if (!empty($_POST['billing_company'])) {
-        update_post_meta($order_id, 'billing_company', sanitize_text_field($_POST['billing_company']));
+        update_post_meta($order_id, 'billing_company_name', sanitize_text_field($_POST['billing_company']));
     }
 }
  
