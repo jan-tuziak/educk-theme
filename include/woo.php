@@ -39,8 +39,8 @@ function conditionally_hide_show_new_field() {
             // HIDE IF NOT CHECKED
             jQuery(`#billing_tax_no_field`).fadeOut();
             jQuery(`#billing_tax_no_field input`).val('');         
-            jQuery(`#billing_company_field`).fadeOut();
-            jQuery(`#billing_company_field input`).val('');         
+            jQuery(`#billing_company_name_field`).fadeOut();
+            jQuery(`#billing_company_name_field input`).val('');         
             jQuery(`#billing_state_field`).fadeOut();
             jQuery(`#billing_state_field input`).val('');         
             jQuery(`#billing_address_1_field`).fadeOut();
@@ -52,7 +52,7 @@ function conditionally_hide_show_new_field() {
         } else {
             // SHOW IF CHECKED
             jQuery(`#billing_tax_no_field`).fadeIn();
-            jQuery(`#billing_company_field`).fadeIn();
+            jQuery(`#billing_company_name_field`).fadeIn();
             jQuery(`#billing_state_field`).fadeIn();
             jQuery(`#billing_address_1_field`).fadeIn();
             jQuery(`#billing_city_field`).fadeIn();
