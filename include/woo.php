@@ -29,3 +29,61 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
     $suffix = '<small> ' . wc_price( wc_get_price_excluding_tax( $product ) ) . ' ' . EDUCK_NET .'</small>';
     return $suffix;
 }
+
+
+add_action( 'woocommerce_after_checkout_form', 'conditionally_hide_show_new_field', 9999 );
+function conditionally_hide_show_new_field() {
+  wc_enqueue_js( "
+    jQuery('input#checkbox_vat_invoice').change(function() {
+        if (! this.checked) {
+            // HIDE IF NOT CHECKED
+            jQuery(`#billing_tax_no_field`).fadeOut();
+            jQuery(`#billing_tax_no_field input`).val('');         
+            jQuery(`#billing_company_field`).fadeOut();
+            jQuery(`#billing_company_field input`).val('');         
+            jQuery(`#billing_state_field`).fadeOut();
+            jQuery(`#billing_state_field input`).val('');         
+            jQuery(`#billing_address_1_field`).fadeOut();
+            jQuery(`#billing_address_1_field input`).val('');         
+            jQuery(`#billing_city_field`).fadeOut();
+            jQuery(`#billing_city_field input`).val('');         
+            jQuery(`#billing_postcode_field`).fadeOut();
+            jQuery(`#billing_postcode_field input`).val('');         
+        } else {
+            // SHOW IF CHECKED
+            jQuery(`#billing_tax_no_field`).fadeIn();
+            jQuery(`#billing_company_field`).fadeIn();
+            jQuery(`#billing_state_field`).fadeIn();
+            jQuery(`#billing_address_1_field`).fadeIn();
+            jQuery(`#billing_city_field`).fadeIn();
+            jQuery(`#billing_postcode_field`).fadeIn();
+        }
+    }).change();
+  "); 
+}
+
+
+add_action( 'woocommerce_checkout_process', 'validate_new_checkout_field' );
+function validate_new_checkout_field() {    
+    if ( $_POST['checkbox_vat_invoice'] ) {
+        if ( empty( $_POST['billing_tax_no'] ) ) {
+            wc_add_notice( 'Podaj proszę NIP swojej firmy', 'error' );
+        }
+
+        if ( empty( $_POST['billing_company_name'] ) ) {
+            wc_add_notice( 'Podaj proszę nazwę swojej firmy', 'error' );
+        }
+
+        if ( empty( $_POST['billing_address_1'] ) ) {
+            wc_add_notice( 'Podaj proszę adres swojej firmy', 'error' );
+        }
+
+        if ( empty( $_POST['billing_city'] ) ) {
+            wc_add_notice( 'Podaj proszę miasto swojej firmy', 'error' );
+        }
+
+        if ( empty( $_POST['billing_postcode'] ) ) {
+            wc_add_notice( 'Podaj proszę kod pocztowy swojej firmy', 'error' );
+        }
+    }
+}
