@@ -67,23 +67,23 @@ add_action( 'woocommerce_checkout_process', 'validate_new_checkout_field' );
 function validate_new_checkout_field() {    
     if ( $_POST['checkbox_vat_invoice'] ) {
         if ( empty( $_POST['billing_tax_no'] ) ) {
-            wc_add_notice( 'Podaj proszę NIP swojej firmy', 'error' );
+            wc_add_notice( EDUCK_TAX_NO_ERROR, 'error' );
         }
 
         if ( empty( $_POST['billing_company_name'] ) ) {
-            wc_add_notice( 'Podaj proszę nazwę swojej firmy', 'error' );
+            wc_add_notice( EDUCK_COMPANY_NAME_ERROR, 'error' );
         }
 
         if ( empty( $_POST['billing_address_1'] ) ) {
-            wc_add_notice( 'Podaj proszę adres swojej firmy', 'error' );
+            wc_add_notice( EDUCK_COMPANY_ADDRESS_ERROR, 'error' );
         }
 
         if ( empty( $_POST['billing_city'] ) ) {
-            wc_add_notice( 'Podaj proszę miasto swojej firmy', 'error' );
+            wc_add_notice( EDUCK_COMPANY_CITY_ERROR, 'error' );
         }
 
         if ( empty( $_POST['billing_postcode'] ) ) {
-            wc_add_notice( 'Podaj proszę kod pocztowy swojej firmy', 'error' );
+            wc_add_notice( EDUCK_COMPANY_POSTCODE_ERROR, 'error' );
         }
     }
 }
