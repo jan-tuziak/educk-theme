@@ -3,7 +3,7 @@ Theme Name: Educk Theme
 Author: Jan Tuziak
 Author URI: http://educk.org/#about/
 Description: My theme. Do not download it. Uses Hello Elementor as template.
-Version: 1.1
+Version: 1.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Template: hello-elementor
@@ -60,4 +60,9 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 /* Hide the `(optional)` labels next to optional fields */
 .woocommerce form .woocommerce-billing-fields .form-row .optional {
    display: none;
+}
+
+/* Make the VAT Invoice more noticeable */
+#checkbox_vat_invoice {
+   height: 80px;
 }
