@@ -6,7 +6,6 @@ define('EDUCK_TAX_NO_ERROR', "Podaj proszę NIP swojej firmy");
 define('EDUCK_COMPANY_NAME_ERROR', "Podaj proszę nazwę swojej firmy");
 define('EDUCK_COMPANY_ADDRESS_ERROR', "Podaj proszę adres swojej firmy");
 define('EDUCK_COMPANY_CITY_ERROR', "Podaj proszę miasto swojej firmy");
-define('EDUCK_COMPANY_POSTCODE_ERROR', "Podaj proszę kod pocztowy swojej firmy");
 
 /**
  * Enqueue Helper Function
