@@ -119,6 +119,7 @@ h2#c-ttl, h2#s-ttl {
 #cc_div .c-tgl {
    border-radius: 4em !important;
    background-color: initial !important;
+   border-style: none !important;
 } 
 /* 
  * 
