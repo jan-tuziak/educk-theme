@@ -104,6 +104,10 @@ h2#c-ttl {
    font-family: inherit !important;
    line-height: 1.2 !important;
 }
+
+#cc_div button {
+   border-radius: unset !important;
+}
 /* 
  * 
  * End of CookieConsent force styling
