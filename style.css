@@ -111,6 +111,10 @@ h2#c-ttl, h2#s-ttl {
    font-family: inherit !important;
    color: inherit;
 }
+
+#cc_div .b-tg {
+   font-size: 1em !important;
+} 
 /* 
  * 
  * End of CookieConsent force styling
