@@ -109,7 +109,7 @@ h2#c-ttl, h2#s-ttl {
     border-radius: var(--cc-btn-border-radius);
    line-height: 1.2 !important;
    font-family: inherit !important;
-   
+   color: inherit;
 }
 /* 
  * 
