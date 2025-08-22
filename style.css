@@ -90,6 +90,11 @@ h2#c-ttl {
     font-weight: 600 !important;
     padding-bottom: 0 !important;
     text-decoration: none !important;
+   font-size: 1em !important;
+   background: none !important;
+   border: none !important;
+   border-radius: unset !important;
+   
 }
 
 /* 
