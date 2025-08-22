@@ -66,3 +66,15 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 #checkbox_vat_invoice {
    height: 80px;
 }
+
+/* CookieConsent force styling */
+h2#c-ttl {
+   margin-top: -.15em !important;
+   font-size: 1.05em !important;
+   margin-bottom: .7em !important;
+   font-weight: 600 !important;
+}
+
+
+
+
