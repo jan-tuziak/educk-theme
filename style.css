@@ -1,4 +1,4 @@
-t/* 
+/* 
 Theme Name: Educk Theme
 Author: Jan Tuziak
 Author URI: http://educk.org/#about/
@@ -69,7 +69,7 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
 
 /* 
  * 
- * CookieConsent force styling
+ * CookieConsent forced styling
  *
  */
 h2#c-ttl, h2#s-ttl {
@@ -123,6 +123,6 @@ h2#c-ttl, h2#s-ttl {
 } 
 /* 
  * 
- * End of CookieConsent force styling
+ * End of CookieConsent forced styling
  *
  */
