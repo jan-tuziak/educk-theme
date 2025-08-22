@@ -98,6 +98,12 @@ h2#c-ttl {
    font-family: inherit !important;
 }
 
+.cc_div a, .cc_div a:hover {
+   color: var(--cc-btn-primary-bg) !important;
+    font-size: 1em !important;
+   font-family: inherit !important;
+   line-height: 1.2 !important;
+}
 /* 
  * 
  * End of CookieConsent force styling
