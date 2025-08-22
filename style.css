@@ -1,4 +1,4 @@
-/* 
+t/* 
 Theme Name: Educk Theme
 Author: Jan Tuziak
 Author URI: http://educk.org/#about/
@@ -99,7 +99,7 @@ h2#c-ttl {
 }
 
 .cc_div a, .cc_div a:hover {
-   color: var(--cc-btn-primary-bg) !important;
+   color: inherit !important;
     font-size: 1em !important;
    font-family: inherit !important;
    line-height: 1.2 !important;
