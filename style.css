@@ -72,7 +72,7 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
  * CookieConsent force styling
  *
  */
-h2#c-ttl {
+h2#c-ttl, h2#s-ttl {
    margin-top: -.15em !important;
    font-size: 1.05em !important;
    margin-bottom: .7em !important;
