@@ -108,6 +108,8 @@ h2#c-ttl {
 #cc_div button, #cc_div button:hover {
     border-radius: var(--cc-btn-border-radius);
    line-height: 1.2 !important;
+   font-family: inherit !important;
+   
 }
 /* 
  * 
