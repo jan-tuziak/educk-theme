@@ -119,10 +119,6 @@ h2#c-ttl {
     visibility: unset !important;
 }
 
-#cm {
-    background: var(--cc-bg) !important;
-}
-
 /* 
  * 
  * End of CookieConsent force styling
