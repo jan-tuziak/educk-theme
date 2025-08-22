@@ -73,6 +73,8 @@ h2#c-ttl {
    font-size: 1.05em !important;
    margin-bottom: .7em !important;
    font-weight: 600 !important;
+   color: inherit !important;
+   line-height: 1.2 !important;
 }
 
 
