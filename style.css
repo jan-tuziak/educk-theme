@@ -94,7 +94,8 @@ h2#c-ttl {
    background: none !important;
    border: none !important;
    border-radius: unset !important;
-   
+   line-height: 1.2 !important;
+   font-family: inherit !important;
 }
 
 /* 
