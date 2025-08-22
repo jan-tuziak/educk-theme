@@ -67,7 +67,11 @@ ttps://wordpress.org/support/topic/not-showing-for-elementor-checkout-returning-
    height: 80px;
 }
 
-/* CookieConsent force styling */
+/* 
+ * 
+ * CookieConsent force styling
+ *
+ */
 h2#c-ttl {
    margin-top: -.15em !important;
    font-size: 1.05em !important;
@@ -78,6 +82,19 @@ h2#c-ttl {
    font-family: inherit !important;
 }
 
+.cc_div .cc-link {
+    border-bottom: 1px solid var(--cc-btn-primary-bg) !important;
+    color: var(--cc-btn-primary-bg) !important;
+    cursor: pointer !important;
+    display: inline !important;
+    font-weight: 600 !important;
+    padding-bottom: 0 !important;
+    text-decoration: none !important;
+}
 
 
-
+/* 
+ * 
+ * End of CookieConsent force styling
+ *
+ */
