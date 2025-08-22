@@ -92,33 +92,6 @@ h2#c-ttl {
     text-decoration: none !important;
 }
 
-.cc_div * {
-    animation: none !important;
-    background: none !important;
-    border: none !important;
-    border-radius: unset !important;
-    box-shadow: none !important;
-    box-sizing: border-box !important;
-    color: inherit !important;
-    float: none !important;
-    font-family: inherit !important;
-    font-size: 1em !important;
-    font-style: inherit !important;
-    font-variant: normal !important;
-    font-weight: inherit !important;
-    height: auto !important;
-    letter-spacing: unset !important;
-    line-height: 1.2 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-align: left !important;
-    text-decoration: none !important;
-    text-transform: none !important;
-    transition: none !important;
-    vertical-align: baseline !important;
-    visibility: unset !important;
-}
-
 /* 
  * 
  * End of CookieConsent force styling
