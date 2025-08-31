@@ -138,6 +138,6 @@ add_action('wp_footer', 'educk_add_fbq_form_events_script');
  * Increase time limit for Action Scheduler
  **/
 function eg_increase_time_limit( $time_limit ) {
-	return 120;
+	return 60;
 }
 add_filter( 'action_scheduler_queue_runner_time_limit', 'eg_increase_time_limit' );
