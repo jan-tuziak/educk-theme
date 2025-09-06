@@ -141,3 +141,11 @@ function eg_increase_time_limit( $time_limit ) {
 	return 60;
 }
 add_filter( 'action_scheduler_queue_runner_time_limit', 'eg_increase_time_limit' );
+
+/**
+ * Increase Concurrent Batches for Action Scheduler
+ **/
+function eg_increase_action_scheduler_concurrent_batches( $concurrent_batches ) {
+	return 2;
+}
+add_filter( 'action_scheduler_queue_runner_concurrent_batches', 'eg_increase_action_scheduler_concurrent_batches' );
