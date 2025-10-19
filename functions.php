@@ -18,7 +18,7 @@ function theme_enqueue_styles() {
 			get_stylesheet_directory_uri() . '/style.css', 
 			array(),
 			wp_get_theme()->get( 'Version' ), //proper style versioning for production
-			// filemtime(get_stylesheet_directory() . "/style.css" ), //quick style versioning for development (omits caching)
+			//filemtime(get_stylesheet_directory() . "/style.css" ), //quick style versioning for development (omits caching)
 			'all');
 }
 

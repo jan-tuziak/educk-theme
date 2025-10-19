@@ -3,7 +3,7 @@ Theme Name: Educk Theme
 Author: Jan Tuziak
 Author URI: http://educk.org/#about/
 Description: My theme. Do not download it. Uses Hello Elementor as template.
-Version: 1.3
+Version: 1.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Template: hello-elementor
@@ -126,3 +126,23 @@ h2#c-ttl, h2#s-ttl {
  * End of CookieConsent forced styling
  *
  */
+
+
+/* Making the Comment Section always always visible */
+.learndash-wrapper .ld-focus-comments #ld-comments-form.ld-collapsed, .learndash-wrapper .ld-focus-comments #ld-comments-post-button.ld-open {
+  display: inline !important;
+}
+
+.ld-focus-comments .ld-expand-button {
+  display: none !important;
+}
+
+.ld-profile__saved-cards {
+  display: none;
+}
+
+/* Remove the "Komentarz" label above the comment field */
+.ld-focus-comments__form-container label[for="comment"],
+.ld-focus-comments__form-container .required-field-message {
+  display: none;
+}
