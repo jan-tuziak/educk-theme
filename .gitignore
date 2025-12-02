@@ -1,0 +1,16 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Build cache
+*.map
+
+# OS
+.DS_Store
+
+# WordPress core dirs (just safety – your theme shouldn’t have these)
+wp-admin/
+wp-includes/
+
+# Environment
+.env
