@@ -1,5 +1,5 @@
 <footer>
-    <!-- your footer here -->
+    <!-- TODO: footer layout later -->
 </footer>
 
 <?php wp_footer(); ?>

@@ -1,14 +1,19 @@
 <?php
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-function educk_theme_assets() {
-    wp_enqueue_style(
-        'educk-styles',
-        get_template_directory_uri() . '/dist/styles.css',
-        array(),
-        filemtime( get_template_directory() . '/dist/styles.css' )
-    );
+/**
+ * Load theme files from /inc
+ */
+require get_template_directory() . '/inc/setup.php';
+require get_template_directory() . '/inc/assets.php';
+
+// Optional, will stay empty for now but good to have ready.
+if ( file_exists( get_template_directory() . '/inc/woo.php' ) ) {
+    require get_template_directory() . '/inc/woo.php';
 }
-add_action( 'wp_enqueue_scripts', 'educk_theme_assets' );
+if ( file_exists( get_template_directory() . '/inc/helpers.php' ) ) {
+    require get_template_directory() . '/inc/helpers.php';
+}
