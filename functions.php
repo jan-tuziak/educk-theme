@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 require get_template_directory() . '/inc/setup.php';
 require get_template_directory() . '/inc/assets.php';
+require get_template_directory() . '/inc/helpers.php';
 
 // Optional, will stay empty for now but good to have ready.
 if ( file_exists( get_template_directory() . '/inc/woo.php' ) ) {
