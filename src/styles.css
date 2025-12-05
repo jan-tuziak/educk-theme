@@ -1,1 +1,105 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+/* Global typography & colors */
+
+body {
+  font-family: "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #3A3E40;        
+  background-color: #FFFFFF;
+}
+
+h1 {
+  font-size: 76px;
+  line-height: 1.05;
+  font-weight: 600;
+  color: #37352E;
+}
+
+h2 {
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: #37352E;
+}
+
+h3 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #37352E;
+}
+
+h4 {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #37352E;
+}
+
+h5 {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #37352E;
+}
+
+small,
+.text-small {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+button,
+.btn,
+.button {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #FFC818;
+  color: #37352E;
+  border: 2px solid #FFC818;
+}
+
+.btn-primary:hover {
+  background-color: #F3CB4A;
+  border-color: #F3CB4A;
+}
+
+.btn-secondary {
+  color: #37352E;
+  background-color: transparent;
+  border: 2px solid #FFC818;
+}
+
+.btn-secondary:hover {
+  background-color: #FFC818;
+  color: #37352E;
+}
+
+.btn-ghost {
+  color: #37352E;
+  background-color: transparent;
+  border: 2px solid #E5E4E2;
+}
+
+.btn-ghost:hover {
+  border-color: #37352E;
+}

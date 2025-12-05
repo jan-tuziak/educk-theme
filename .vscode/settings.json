@@ -1,0 +1,10 @@
+{
+    // Turn off the basic PHP suggestions (optional, but nicer with Intelephense)
+    "php.suggest.basic": false,
+    // Intelephense: tell it where WP lives and where the stubs are
+    "intelephense.environment.includePaths": [
+        "/Users/jantuziak/Sites/educk-pl",
+        "/Users/jantuziak/dev/php-stubs/wordpress-stubs",
+        "/Users/jantuziak/dev/php-stubs/woocommerce-stubs"
+    ]
+}

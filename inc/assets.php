@@ -1,3 +1,4 @@
+<?php
 function educk_enqueue_assets() {
     $css_path = get_template_directory() . '/dist/styles.css';
 

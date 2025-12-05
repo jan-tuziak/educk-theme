@@ -42,7 +42,9 @@ wp search-replace 'https://educk.pl' 'http://localhost:8000' --skip-columns=guid
 wp search-replace 'http://educk.pl' 'http://localhost:8000' --skip-columns=guid
 
 wp plugin deactivate really-simple-ssl
+wp plugin deactivate simple-cloudflare-turnstile 
 
 wp cache flush
 
 php -S localhost:8000
+
