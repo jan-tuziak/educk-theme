@@ -151,3 +151,15 @@ h2#c-ttl, h2#s-ttl {
 #floating-price .price {
    margin: 0;
 }
+
+
+/* Global focus-visible outline (a11y) */
+:focus-visible {
+  outline: 1px solid #FFC818 !important; /* primary */
+  outline-offset: 0px !important;
+}
+
+/* Usuń domyślny focus tam, gdzie nie focus-visible */
+:focus:not(:focus-visible) {
+  outline: none !important;
+}
