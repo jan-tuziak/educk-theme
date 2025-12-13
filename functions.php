@@ -1,6 +1,16 @@
 <?php
-$TLD = end(explode(".", parse_url('http://' . $_SERVER['SERVER_NAME'], PHP_URL_HOST))); // 'org' or 'pl'
+// Get host in a WP-safe way (works in front-end, admin, and most contexts)
+$host = wp_parse_url(home_url('/'), PHP_URL_HOST);
+
+// Fallbacks (WP-CLI/cron/edge cases)
+if (empty($host)) {
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
+}
+
+$parts = explode('.', $host);
+$TLD = strtolower(end($parts)); // 'pl' or 'org'
 $include_file = ($TLD === 'pl') ? 'include/pl.php' : 'include/org.php';
+
 include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
 include_once get_theme_file_path('include/woo.php');
