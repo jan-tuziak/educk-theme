@@ -159,7 +159,38 @@ h2#c-ttl, h2#s-ttl {
   outline-offset: 0px !important;
 }
 
-/* Usuń domyślny focus tam, gdzie nie focus-visible */
+/* Delete default focus, where not focus-visible  */
 :focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+
+/* WORDPRESS BUTTON STYLING  */
+/* Base button */
+.wp-element-button {
+  background-color: #FFC818; /* primary */
+  color: #3A3E40;            /* primary-content */
+  text-decoration: none;
+  border: none;
+}
+
+/* Hover / focus */
+.wp-element-button:hover,
+.wp-element-button:focus {
+  background-color: #F3CB4A; /* secondary */
+  color: #3A3E40 !important;
+}
+
+/* Optional: keyboard accessibility */
+.wp-element-button:focus-visible {
+  outline: 2px solid #FFC818;
+  outline-offset: 2px;
+}
+
+
+/* Remove All outlines - removing that annoying blue focus outline */
+*,
+*::before,
+*::after {
   outline: none !important;
 }
