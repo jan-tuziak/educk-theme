@@ -49,7 +49,7 @@ if ( $email_improvements_enabled ) {
 		echo sprintf( esc_html__( 'Your order from %s has been refunded.', 'woocommerce' ), esc_html( $blogname ) ) . "\n\n";
 	}
 	echo '</p><p>';
-	echo esc_html__( 'Here’s a reminder of what you’ve ordered:', 'woocommerce' ) . "\n\n";
+	// echo esc_html__( 'Here’s a reminder of what you’ve ordered:', 'woocommerce' ) . "\n\n";
 
 } elseif ( $partial_refund ) {
 	/* translators: %s: Site title */

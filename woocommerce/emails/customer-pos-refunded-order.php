@@ -51,7 +51,7 @@ if ( $partial_refund ) {
 	echo sprintf( esc_html__( 'Your order from %s has been refunded.', 'woocommerce' ), esc_html( $pos_store_name ) ) . "\n\n";
 }
 echo '</p><p>';
-echo esc_html__( 'Here’s a reminder of what you’ve bought:', 'woocommerce' ) . "\n\n";
+// echo esc_html__( 'Here’s a reminder of what you’ve bought:', 'woocommerce' ) . "\n\n";
 ?>
 </p>
 </div>

@@ -41,7 +41,7 @@ if ( ! empty( $order->get_billing_first_name() ) ) {
 </p>
 <p><?php esc_html_e( 'We have finished processing your order.', 'woocommerce' ); ?></p>
 <?php if ( $email_improvements_enabled ) : ?>
-	<p><?php esc_html_e( 'Here’s a reminder of what you’ve ordered:', 'woocommerce' ); ?></p>
+	<!-- <p><?php esc_html_e( 'Here’s a reminder of what you’ve ordered:', 'woocommerce' ); ?></p> -->
 <?php endif; ?>
 <?php echo $email_improvements_enabled ? '</div>' : ''; ?>
 
