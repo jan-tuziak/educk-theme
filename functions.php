@@ -122,28 +122,6 @@ function dyanmicCss() {
     }
 }
 
-// /**
-//  * send events to dataLayer when forms are submitted
-//  **/
-// function educk_add_fbq_form_events_script() {
-//     ?>
-//     <script>
-//     document.addEventListener('DOMContentLoaded', function () {
-//       jQuery(document).on('submit_success', function(e) {
-//         const formId = e.target.id;
-// 	window.dataLayer = window.dataLayer || [];
-//         if (formId === 'new_subscriber') {
-//           window.dataLayer.push({'event': 'new_subscriber'});
-//         } else {
-// 	  window.dataLayer.push({'event': 'form_submit_successful'});
-//         }
-//       });
-//     });
-//     </script>
-//     <?php
-// }
-// add_action('wp_footer', 'educk_add_fbq_form_events_script');
-
 /**
  * Increase time limit for Action Scheduler
  **/
