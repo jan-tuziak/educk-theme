@@ -72,6 +72,7 @@
         "zip",
         "zlib",
         "/Users/jantuziak/dev/php-stubs/wordpress-stubs",
-        "/Users/jantuziak/dev/php-stubs/woocommerce-stubs"
+        "/Users/jantuziak/dev/php-stubs/woocommerce-stubs",
+        "/Users/jantuziak/dev/php-stubs/elementor-stubs"
     ]
 }
