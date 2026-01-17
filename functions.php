@@ -167,8 +167,8 @@ add_action('init', function () {
 
     $is_pl = ($TLD === 'pl');
 
-    $singular = $is_pl ? 'Typ zasobu' : 'Resource type';
-    $plural   = $is_pl ? 'Typy zasobów' : 'Resource types';
+    $singular = $is_pl ? 'Typ darmowego zasobu' : 'Free Resource type';
+    $plural   = $is_pl ? 'Typy darmowych zasobów' : 'Free Resource types';
 
     register_taxonomy(
         'resource_type',
