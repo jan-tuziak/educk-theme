@@ -159,3 +159,48 @@ function my_expiration_filter($seconds, $user_id, $remember){
 
     return $expiration;
 }
+
+
+add_action('init', function () {
+    // Use the $TLD computed at the top of functions.php
+    global $TLD;
+
+    $is_pl = ($TLD === 'pl');
+
+    $singular = $is_pl ? 'Typ zasobu' : 'Resource type';
+    $plural   = $is_pl ? 'Typy zasobów' : 'Resource types';
+
+    register_taxonomy(
+        'resource_type',
+        ['post'],
+        [
+            // Core behavior
+            'public'            => false,  // no public archives / no SEO duplicates
+            'show_ui'           => true,   // show in WP admin
+            'show_admin_column' => true,   // column on posts list
+            'show_in_rest'      => true,   // good for editors / builders
+
+            // Taxonomy behavior
+            'hierarchical'      => false,  // like tags
+            'rewrite'           => false,  // no URLs like /resource_type/...
+
+            // Labels (PL for .pl, EN for .org)
+            'labels' => [
+                'name'                       => $plural,
+                'singular_name'              => $singular,
+                'search_items'               => $is_pl ? 'Szukaj typów' : 'Search types',
+                'all_items'                  => $is_pl ? 'Wszystkie typy' : 'All types',
+                'edit_item'                  => $is_pl ? 'Edytuj typ' : 'Edit type',
+                'view_item'                  => $is_pl ? 'Zobacz typ' : 'View type',
+                'update_item'                => $is_pl ? 'Aktualizuj typ' : 'Update type',
+                'add_new_item'               => $is_pl ? 'Dodaj nowy typ' : 'Add new type',
+                'new_item_name'              => $is_pl ? 'Nazwa nowego typu' : 'New type name',
+                'menu_name'                  => $singular,
+                'not_found'                  => $is_pl ? 'Nie znaleziono' : 'Not found',
+                'back_to_items'              => $is_pl ? 'Wróć do listy typów' : 'Back to types',
+                'item_link'                  => $is_pl ? 'Link do typu' : 'Type link',
+                'item_link_description'      => $is_pl ? 'Link do typu zasobu' : 'A link to the resource type',
+            ],
+        ]
+    );
+});
