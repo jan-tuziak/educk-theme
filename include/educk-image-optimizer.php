@@ -201,6 +201,9 @@ if (defined('WP_CLI') && WP_CLI) {
         $skipped   = 0;
         $failed    = 0;
 
+        $bytes_before_total = 0;
+        $bytes_after_total  = 0;
+
         foreach ($ids as $attachment_id) {
             $file = get_attached_file($attachment_id);
             if (!$file || !file_exists($file)) {
@@ -231,6 +234,11 @@ if (defined('WP_CLI') && WP_CLI) {
 
             WP_CLI::log(sprintf('Processing #%d: %s', $attachment_id, $rel_path));
 
+            $before_bytes = @filesize($file);
+            if ($before_bytes !== false) {
+                $bytes_before_total += (int) $before_bytes;
+            }
+
             if ($dry_run) {
                 $processed++;
                 continue;
@@ -254,6 +262,11 @@ if (defined('WP_CLI') && WP_CLI) {
             $new_file = $result['file'];
             $new_mime = $result['type'];
 
+            $after_bytes = @filesize($new_file);
+            if ($after_bytes !== false) {
+                $bytes_after_total += (int) $after_bytes;
+            }
+
             $new_rel = ltrim(str_replace($basedir, '', $new_file), '/');
 
             update_attached_file($attachment_id, $new_file);
@@ -275,6 +288,19 @@ if (defined('WP_CLI') && WP_CLI) {
             $processed++;
         }
 
-        WP_CLI::success(sprintf('Done. processed=%d skipped=%d failed=%d', $processed, $skipped, $failed));
+        $saved_bytes = max(0, $bytes_before_total - $bytes_after_total);
+        $saved_mb    = $saved_bytes / 1024 / 1024;
+        $before_mb   = $bytes_before_total / 1024 / 1024;
+        $after_mb    = $bytes_after_total / 1024 / 1024;
+
+        WP_CLI::success(sprintf(
+            'Done. processed=%d skipped=%d failed=%d | size: %.2f MB -> %.2f MB | saved: %.2f MB',
+            $processed,
+            $skipped,
+            $failed,
+            $before_mb,
+            $after_mb,
+            $saved_mb
+        ));
     });
 }
