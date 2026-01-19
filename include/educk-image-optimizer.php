@@ -153,3 +153,128 @@ class Educk_Image_Optimizer_Upload {
 }
 
 Educk_Image_Optimizer_Upload::init();
+
+// ===============================
+// WP-CLI: Bulk optimize existing images
+// Usage examples:
+//   wp educk optimize-images --dry-run
+//   wp educk optimize-images --limit=50
+//   wp educk optimize-images --offset=0 --limit=200
+//   wp educk optimize-images --only-mime=image/jpeg
+// ===============================
+if (defined('WP_CLI') && WP_CLI) {
+
+    /**
+     * Bulk optimize existing Media Library images using the same rules as upload-time optimizer.
+     */
+    WP_CLI::add_command('educk optimize-images', function($args, $assoc_args) {
+        $dry_run   = isset($assoc_args['dry-run']);
+        $limit     = isset($assoc_args['limit']) ? max(1, (int)$assoc_args['limit']) : 0;
+        $offset    = isset($assoc_args['offset']) ? max(0, (int)$assoc_args['offset']) : 0;
+        $only_mime = isset($assoc_args['only-mime']) ? (string)$assoc_args['only-mime'] : '';
+
+        $allowed_mimes = ['image/jpeg', 'image/png'];
+        if ($only_mime !== '') {
+            $allowed_mimes = [$only_mime];
+        }
+
+        $query_args = [
+            'post_type'      => 'attachment',
+            'post_status'    => 'inherit',
+            'posts_per_page' => ($limit > 0 ? $limit : -1),
+            'offset'         => $offset,
+            'fields'         => 'ids',
+            'orderby'        => 'ID',
+            'order'          => 'ASC',
+            'post_mime_type' => $allowed_mimes,
+        ];
+
+        $ids = get_posts($query_args);
+        if (empty($ids)) {
+            WP_CLI::success('No matching attachments found.');
+            return;
+        }
+
+        WP_CLI::log(sprintf('Found %d attachments to process%s.', count($ids), $dry_run ? ' (dry-run)' : ''));
+
+        $processed = 0;
+        $skipped   = 0;
+        $failed    = 0;
+
+        foreach ($ids as $attachment_id) {
+            $file = get_attached_file($attachment_id);
+            if (!$file || !file_exists($file)) {
+                WP_CLI::warning("#{$attachment_id} missing file on disk, skipping");
+                $skipped++;
+                continue;
+            }
+
+            $mime = get_post_mime_type($attachment_id);
+            if (!in_array($mime, ['image/jpeg', 'image/png'], true) && $only_mime === '') {
+                $skipped++;
+                continue;
+            }
+
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if (in_array($ext, ['avif', 'webp'], true)) {
+                // Already optimized
+                $skipped++;
+                continue;
+            }
+
+            // Prepare a fake $upload array for reuse of the upload optimizer.
+            $uploads  = wp_get_upload_dir();
+            $basedir  = trailingslashit($uploads['basedir']);
+            $baseurl  = trailingslashit($uploads['baseurl']);
+            $rel_path = ltrim(str_replace($basedir, '', $file), '/');
+            $url      = $baseurl . str_replace(DIRECTORY_SEPARATOR, '/', $rel_path);
+
+            WP_CLI::log(sprintf('Processing #%d: %s', $attachment_id, $rel_path));
+
+            if ($dry_run) {
+                $processed++;
+                continue;
+            }
+
+            $before_rel = $rel_path;
+
+            $result = Educk_Image_Optimizer_Upload::optimize_on_upload([
+                'file' => $file,
+                'url'  => $url,
+                'type' => $mime,
+            ], 'educk-cli');
+
+            if (empty($result['file']) || empty($result['type']) || !file_exists($result['file'])) {
+                WP_CLI::warning("#{$attachment_id} optimization failed, skipping");
+                $failed++;
+                continue;
+            }
+
+            // Update attachment meta to point to the new optimized file.
+            $new_file = $result['file'];
+            $new_mime = $result['type'];
+
+            $new_rel = ltrim(str_replace($basedir, '', $new_file), '/');
+
+            update_attached_file($attachment_id, $new_file);
+            wp_update_post([
+                'ID'             => $attachment_id,
+                'post_mime_type' => $new_mime,
+            ]);
+
+            // Regenerate metadata / intermediate sizes from the new optimized original.
+            $meta = wp_generate_attachment_metadata($attachment_id, $new_file);
+            if (is_wp_error($meta) || empty($meta)) {
+                WP_CLI::warning("#{$attachment_id} metadata regeneration failed");
+                $failed++;
+                continue;
+            }
+            wp_update_attachment_metadata($attachment_id, $meta);
+
+            WP_CLI::success(sprintf('Updated #%d: %s -> %s', $attachment_id, $before_rel, $new_rel));
+            $processed++;
+        }
+
+        WP_CLI::success(sprintf('Done. processed=%d skipped=%d failed=%d', $processed, $skipped, $failed));
+    });
+}
