@@ -77,8 +77,15 @@ class Educk_Image_Optimizer_Upload {
         }
 
         // New file path, same basename, new extension
-        $new_file = preg_replace('/\.[^.]+$/', '.' . $target_ext, $file);
-        if (!$new_file) return $upload;
+        // IMPORTANT: WordPress makes the *original* upload filename unique (e.g. .jpg),
+        // but after converting to .avif/.webp we must ensure uniqueness again.
+        $dir      = pathinfo($file, PATHINFO_DIRNAME);
+        $basename = pathinfo($file, PATHINFO_FILENAME);
+
+        // Create a unique target filename in the same directory
+        $target_filename = wp_unique_filename($dir, $basename . '.' . $target_ext);
+        $new_file        = trailingslashit($dir) . $target_filename;
+        if (empty($target_filename) || empty($new_file)) return $upload;
 
         // Save optimized file
         $saved = $editor->save($new_file, $target_mime);
@@ -91,7 +98,11 @@ class Educk_Image_Optimizer_Upload {
 
         // Update the upload array so WP continues with the optimized file
         $upload['file'] = $saved['path'];
-        $upload['url']  = preg_replace('/\.[^.]+$/', '.' . $target_ext, $upload['url']);
+
+        // Update URL to match the unique filename we saved
+        $upload_dir_url  = trailingslashit(dirname($upload['url']));
+        $upload['url']   = $upload_dir_url . $target_filename;
+
         $upload['type'] = $target_mime;
 
         return $upload;
