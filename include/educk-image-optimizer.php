@@ -154,6 +154,65 @@ class Educk_Image_Optimizer_Upload {
 
 Educk_Image_Optimizer_Upload::init();
 
+/**
+ * Legacy uploads compatibility:
+ * If a request comes in for a missing /uploads/*.jpg|*.png (hardcoded URLs),
+ * serve the corresponding .avif/.webp if present, otherwise serve the backed-up original
+ * from /uploads/educk-originals/ (if present).
+ *
+ * This is a “stop the bleeding” fix so old URLs keep working after conversion.
+ */
+add_action('template_redirect', function () {
+    if (is_admin() || (defined('WP_CLI') && WP_CLI)) return;
+
+    // Only handle requests that WP is rendering as 404 (missing file routed to WP).
+    if (!is_404()) return;
+
+    $reqPath = wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    if (!$reqPath) return;
+
+    $uploads = wp_get_upload_dir();
+    $uploadsPath = wp_parse_url($uploads['baseurl'], PHP_URL_PATH); // e.g. /wp-content/uploads
+    if (!$uploadsPath || strpos($reqPath, $uploadsPath) !== 0) return;
+
+    $rel = ltrim(substr($reqPath, strlen($uploadsPath)), '/');
+    if (!preg_match('~\.(jpe?g|png)$~i', $rel, $m)) return;
+
+    $basedir = trailingslashit($uploads['basedir']);
+    $origAbs = $basedir . $rel;
+    $noExt   = preg_replace('~\.(jpe?g|png)$~i', '', $origAbs);
+
+    $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+
+    $candidates = [];
+
+    // Prefer modern formats the browser says it accepts
+    if (stripos($accept, 'image/avif') !== false) {
+        $candidates[] = [$noExt . '.avif', 'image/avif'];
+    }
+    if (stripos($accept, 'image/webp') !== false) {
+        $candidates[] = [$noExt . '.webp', 'image/webp'];
+    }
+
+    // Last resort: serve backed-up original (works even for older browsers)
+    $backupAbs = $basedir . 'educk-originals/' . basename($origAbs);
+    $fallbackMime = (strtolower($m[1]) === 'png') ? 'image/png' : 'image/jpeg';
+    $candidates[] = [$backupAbs, $fallbackMime];
+
+    foreach ($candidates as [$abs, $mime]) {
+        if (!file_exists($abs)) continue;
+
+        status_header(200);
+        header('Content-Type: ' . $mime);
+        header('Content-Length: ' . filesize($abs));
+        header('Cache-Control: public, max-age=31536000');
+        header('Vary: Accept');
+
+        readfile($abs);
+        exit;
+    }
+}, 0);
+
 // ===============================
 // WP-CLI: Bulk optimize existing images
 // Usage examples:
