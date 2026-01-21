@@ -211,7 +211,6 @@ if (defined('WP_CLI') && WP_CLI) {
          * Replace old image references with new ones in common places:
          * - wp_posts.post_content
          * - Elementor JSON/meta fields
-         * - wp_options.option_value (best-effort)
          *
          * We update both absolute URLs and relative /wp-content/uploads paths.
          */
@@ -233,9 +232,11 @@ if (defined('WP_CLI') && WP_CLI) {
             $old_path = ($uploads_path !== '' ? $uploads_path . '/' : '/') . $old_rel_norm;
             $new_path = ($uploads_path !== '' ? $uploads_path . '/' : '/') . $new_rel_norm;
 
-            $log_one = function(string $label, int $affected) use (&$ref_updates_total) {
+            $updates_this_call = 0;
+            $log_one_local = function(string $label, int $affected) use (&$ref_updates_total, &$updates_this_call) {
                 if ($affected > 0) {
                     $ref_updates_total += $affected;
+                    $updates_this_call += $affected;
                     WP_CLI::log(sprintf('  refs: %s updated rows=%d', $label, $affected));
                 }
             };
@@ -245,45 +246,34 @@ if (defined('WP_CLI') && WP_CLI) {
                 "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
                 $old_url, $new_url, '%' . $wpdb->esc_like($old_url) . '%'
             ));
-            $log_one('posts.content (abs url)', (int) $wpdb->rows_affected);
+            $log_one_local('posts.content (abs url)', (int) $wpdb->rows_affected);
 
             $wpdb->query($wpdb->prepare(
                 "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
                 $old_path, $new_path, '%' . $wpdb->esc_like($old_path) . '%'
             ));
-            $log_one('posts.content (rel path)', (int) $wpdb->rows_affected);
+            $log_one_local('posts.content (rel path)', (int) $wpdb->rows_affected);
 
             // 2) Elementor meta (JSON strings; safe for REPLACE)
-            $elementor_keys = ['_elementor_data', '_elementor_page_settings', '_elementor_css'];
+            // Only _elementor_data is JSON and safe for string replacement.
+            // Avoid touching _elementor_page_settings / _elementor_css to prevent breaking kits/global styles.
+            $elementor_keys = ['_elementor_data'];
             foreach ($elementor_keys as $k) {
                 $wpdb->query($wpdb->prepare(
                     "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
                     $old_url, $new_url, $k, '%' . $wpdb->esc_like($old_url) . '%'
                 ));
-                $log_one("postmeta {$k} (abs url)", (int) $wpdb->rows_affected);
+                $log_one_local("postmeta {$k} (abs url)", (int) $wpdb->rows_affected);
 
                 $wpdb->query($wpdb->prepare(
                     "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
                     $old_path, $new_path, $k, '%' . $wpdb->esc_like($old_path) . '%'
                 ));
-                $log_one("postmeta {$k} (rel path)", (int) $wpdb->rows_affected);
+                $log_one_local("postmeta {$k} (rel path)", (int) $wpdb->rows_affected);
             }
 
-            // 3) options (best-effort)
-            $wpdb->query($wpdb->prepare(
-                "UPDATE {$wpdb->options} SET option_value = REPLACE(option_value, %s, %s) WHERE option_value LIKE %s",
-                $old_url, $new_url, '%' . $wpdb->esc_like($old_url) . '%'
-            ));
-            $log_one('options (abs url)', (int) $wpdb->rows_affected);
-
-            $wpdb->query($wpdb->prepare(
-                "UPDATE {$wpdb->options} SET option_value = REPLACE(option_value, %s, %s) WHERE option_value LIKE %s",
-                $old_path, $new_path, '%' . $wpdb->esc_like($old_path) . '%'
-            ));
-            $log_one('options (rel path)', (int) $wpdb->rows_affected);
-
             // Extra: show what we searched/replaced when something changed
-            if ($ref_updates_total > 0) {
+            if ($updates_this_call > 0) {
                 WP_CLI::log('  refs: replaced:');
                 WP_CLI::log('    - ' . $old_url . '  ->  ' . $new_url);
                 WP_CLI::log('    - ' . $old_path . '  ->  ' . $new_path);
