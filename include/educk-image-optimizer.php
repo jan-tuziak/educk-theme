@@ -154,6 +154,65 @@ class Educk_Image_Optimizer_Upload {
 
 Educk_Image_Optimizer_Upload::init();
 
+/**
+ * Legacy uploads compatibility:
+ * If a request comes in for a missing /uploads/*.jpg|*.png (hardcoded URLs),
+ * serve the corresponding .avif/.webp if present, otherwise serve the backed-up original
+ * from /uploads/educk-originals/ (if present).
+ *
+ * This is a “stop the bleeding” fix so old URLs keep working after conversion.
+ */
+add_action('template_redirect', function () {
+    if (is_admin() || (defined('WP_CLI') && WP_CLI)) return;
+
+    // Only handle requests that WP is rendering as 404 (missing file routed to WP).
+    if (!is_404()) return;
+
+    $reqPath = wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    if (!$reqPath) return;
+
+    $uploads = wp_get_upload_dir();
+    $uploadsPath = wp_parse_url($uploads['baseurl'], PHP_URL_PATH); // e.g. /wp-content/uploads
+    if (!$uploadsPath || strpos($reqPath, $uploadsPath) !== 0) return;
+
+    $rel = ltrim(substr($reqPath, strlen($uploadsPath)), '/');
+    if (!preg_match('~\.(jpe?g|png)$~i', $rel, $m)) return;
+
+    $basedir = trailingslashit($uploads['basedir']);
+    $origAbs = $basedir . $rel;
+    $noExt   = preg_replace('~\.(jpe?g|png)$~i', '', $origAbs);
+
+    $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+
+    $candidates = [];
+
+    // Prefer modern formats the browser says it accepts
+    if (stripos($accept, 'image/avif') !== false) {
+        $candidates[] = [$noExt . '.avif', 'image/avif'];
+    }
+    if (stripos($accept, 'image/webp') !== false) {
+        $candidates[] = [$noExt . '.webp', 'image/webp'];
+    }
+
+    // Last resort: serve backed-up original (works even for older browsers)
+    $backupAbs = $basedir . 'educk-originals/' . basename($origAbs);
+    $fallbackMime = (strtolower($m[1]) === 'png') ? 'image/png' : 'image/jpeg';
+    $candidates[] = [$backupAbs, $fallbackMime];
+
+    foreach ($candidates as [$abs, $mime]) {
+        if (!file_exists($abs)) continue;
+
+        status_header(200);
+        header('Content-Type: ' . $mime);
+        header('Content-Length: ' . filesize($abs));
+        header('Cache-Control: public, max-age=31536000');
+        header('Vary: Accept');
+
+        readfile($abs);
+        exit;
+    }
+}, 0);
+
 // ===============================
 // WP-CLI: Bulk optimize existing images
 // Usage examples:
@@ -204,40 +263,39 @@ if (defined('WP_CLI') && WP_CLI) {
         $bytes_before_total = 0;
         $bytes_after_total  = 0;
 
-        // Count of reference updates performed during this run (best-effort)
+        // Total number of DB rows updated due to hardcoded URL/path replacements.
         $ref_updates_total = 0;
 
         /**
-         * Replace old image references with new ones in common places:
+         * Replace hardcoded references from old file path/URL to new file path/URL.
+         * Safe scope only:
          * - wp_posts.post_content
-         * - Elementor JSON/meta fields
-         *
-         * We update both absolute URLs and relative /wp-content/uploads paths.
+         * - wp_postmeta.meta_key = '_elementor_data' (JSON)
          */
         $replace_refs = function(string $old_rel, string $new_rel, array $uploads) use (&$ref_updates_total) {
             global $wpdb;
 
             $baseurl = trailingslashit($uploads['baseurl']);
-
-            // e.g. /wp-content/uploads
             $uploads_path = wp_parse_url($baseurl, PHP_URL_PATH);
             $uploads_path = $uploads_path ? rtrim($uploads_path, '/') : '';
 
             $old_rel_norm = str_replace(DIRECTORY_SEPARATOR, '/', ltrim($old_rel, '/'));
             $new_rel_norm = str_replace(DIRECTORY_SEPARATOR, '/', ltrim($new_rel, '/'));
 
-            $old_url  = $baseurl . $old_rel_norm;
-            $new_url  = $baseurl . $new_rel_norm;
+            // Absolute URL variants
+            $old_url = $baseurl . $old_rel_norm;
+            $new_url = $baseurl . $new_rel_norm;
 
+            // Relative path variants (as they often appear in content/meta)
             $old_path = ($uploads_path !== '' ? $uploads_path . '/' : '/') . $old_rel_norm;
             $new_path = ($uploads_path !== '' ? $uploads_path . '/' : '/') . $new_rel_norm;
 
             $updates_this_call = 0;
-            $log_one_local = function(string $label, int $affected) use (&$ref_updates_total, &$updates_this_call) {
+            $log_rows = function(string $label, int $affected) use (&$ref_updates_total, &$updates_this_call) {
                 if ($affected > 0) {
                     $ref_updates_total += $affected;
                     $updates_this_call += $affected;
-                    WP_CLI::log(sprintf('  refs: %s updated rows=%d', $label, $affected));
+                    WP_CLI::log(sprintf('    refs: %s updated rows=%d', $label, $affected));
                 }
             };
 
@@ -246,37 +304,31 @@ if (defined('WP_CLI') && WP_CLI) {
                 "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
                 $old_url, $new_url, '%' . $wpdb->esc_like($old_url) . '%'
             ));
-            $log_one_local('posts.content (abs url)', (int) $wpdb->rows_affected);
+            $log_rows('posts.post_content (abs url)', (int) $wpdb->rows_affected);
 
             $wpdb->query($wpdb->prepare(
                 "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
                 $old_path, $new_path, '%' . $wpdb->esc_like($old_path) . '%'
             ));
-            $log_one_local('posts.content (rel path)', (int) $wpdb->rows_affected);
+            $log_rows('posts.post_content (rel path)', (int) $wpdb->rows_affected);
 
-            // 2) Elementor meta (JSON strings; safe for REPLACE)
-            // Only _elementor_data is JSON and safe for string replacement.
-            // Avoid touching _elementor_page_settings / _elementor_css to prevent breaking kits/global styles.
-            $elementor_keys = ['_elementor_data'];
-            foreach ($elementor_keys as $k) {
-                $wpdb->query($wpdb->prepare(
-                    "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
-                    $old_url, $new_url, $k, '%' . $wpdb->esc_like($old_url) . '%'
-                ));
-                $log_one_local("postmeta {$k} (abs url)", (int) $wpdb->rows_affected);
+            // 2) Elementor content JSON
+            $wpdb->query($wpdb->prepare(
+                "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
+                $old_url, $new_url, '_elementor_data', '%' . $wpdb->esc_like($old_url) . '%'
+            ));
+            $log_rows("postmeta _elementor_data (abs url)", (int) $wpdb->rows_affected);
 
-                $wpdb->query($wpdb->prepare(
-                    "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
-                    $old_path, $new_path, $k, '%' . $wpdb->esc_like($old_path) . '%'
-                ));
-                $log_one_local("postmeta {$k} (rel path)", (int) $wpdb->rows_affected);
-            }
+            $wpdb->query($wpdb->prepare(
+                "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
+                $old_path, $new_path, '_elementor_data', '%' . $wpdb->esc_like($old_path) . '%'
+            ));
+            $log_rows("postmeta _elementor_data (rel path)", (int) $wpdb->rows_affected);
 
-            // Extra: show what we searched/replaced when something changed
             if ($updates_this_call > 0) {
-                WP_CLI::log('  refs: replaced:');
-                WP_CLI::log('    - ' . $old_url . '  ->  ' . $new_url);
-                WP_CLI::log('    - ' . $old_path . '  ->  ' . $new_path);
+                WP_CLI::log('    refs: replaced:');
+                WP_CLI::log('      - ' . $old_url . '  ->  ' . $new_url);
+                WP_CLI::log('      - ' . $old_path . '  ->  ' . $new_path);
             }
         };
 
@@ -316,6 +368,7 @@ if (defined('WP_CLI') && WP_CLI) {
             }
 
             if ($dry_run) {
+                // Note: in dry-run we do NOT convert files and do NOT update DB references.
                 $processed++;
                 continue;
             }
@@ -362,11 +415,9 @@ if (defined('WP_CLI') && WP_CLI) {
 
             WP_CLI::success(sprintf('Updated #%d: %s -> %s', $attachment_id, $before_rel, $new_rel));
 
-            // Best-effort: update hardcoded references (Elementor widgets, galleries, custom HTML)
-            // from old .jpg/.png to the new .avif/.webp.
+            // Update hardcoded references (Elementor widgets, galleries, custom HTML)
             WP_CLI::log('  refs: scanning for hardcoded URLs/paths to update...');
             $replace_refs($before_rel, $new_rel, $uploads);
-
             $processed++;
         }
 
