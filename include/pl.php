@@ -78,117 +78,67 @@ function translate_woo_fields(){
 	wp_register_script( 'translate-woo-fields', '', [], '', true );
 	wp_enqueue_script( 'translate-woo-fields'  );
 	wp_add_inline_script( 'translate-woo-fields', '
-		// waitForElm("input[id=\"coupon_code\"]").then((elm) => {
-		// 	elm.placeholder = "Kod kuponu";
-		// });
+		waitForElm("input[id=\"coupon_code\"]").then((elm) => {
+			elm.placeholder = "Kod kuponu";
+		});
 		
-		// waitForElm(".e-woocommerce-login-nudge").then((elm) => {
-		// 	elm.textContent  = "Jeżeli już robiłeś/-aś u nas zakupy, to proszę zaloguj się.";
-		// });
+		waitForElm(".e-woocommerce-login-nudge").then((elm) => {
+			elm.textContent  = "Jeżeli już robiłeś/-aś u nas zakupy, to proszę zaloguj się.";
+		});
 		
-		// waitForElm("label[for=\"password\"]").then((elm) => {
-		// 	elm.firstChild.textContent = "Hasło ";
-		// });
+		waitForElm("label[for=\"password\"]").then((elm) => {
+			elm.firstChild.textContent = "Hasło ";
+		});
 		
-		// waitForElm("button.e-woocommerce-form-login-submit").then((elm) => {
-		// 	elm.textContent = "Zaloguj się";
-		// });
+		waitForElm("button.e-woocommerce-form-login-submit").then((elm) => {
+			elm.textContent = "Zaloguj się";
+		});
 		
-		// waitForElm("span.elementor-woocomemrce-login-rememberme").then((elm) => {
-		// 	elm.textContent = "Zapamiętaj mnie";
-		// });
+		waitForElm("span.elementor-woocomemrce-login-rememberme").then((elm) => {
+			elm.textContent = "Zapamiętaj mnie";
+		});
 		
-		// waitForElm("p.lost_password > a").then((elm) => {
-		// 	elm.textContent = "Zapomniałeś/-aś hasła?";
-		// });
+		waitForElm("p.lost_password > a").then((elm) => {
+			elm.textContent = "Zapomniałeś/-aś hasła?";
+		});
 		
-		// waitForElm("label.e-coupon-anchor-description").then((elm) => {
-		// 	elm.textContent = "Jeżeli masz kod kuponu, wpisz go poniżej.";
-		// });
+		waitForElm("label.e-coupon-anchor-description").then((elm) => {
+			elm.textContent = "Jeżeli masz kod kuponu, wpisz go poniżej.";
+		});
 		
-		// waitForElm("button.e-apply-coupon").then((elm) => {
-		// 	elm.textContent = "Wykorzystaj kupon";
-		// });
+		waitForElm("button.e-apply-coupon").then((elm) => {
+			elm.textContent = "Wykorzystaj kupon";
+		});
 
-		function translateAll() {
+		waitForElm("p.e-woocommerce-coupon-nudge").then((elm) => {
+		    function translateCoupon() {
+		        const link = elm.querySelector("a");
+		
+		        // zmień tekst przed linkiem (bez ruszania <a>)
+		        if (elm.childNodes.length > 0) {
+		            elm.childNodes[0].nodeValue = "Masz kupon? ";
+		        }
+		
+		        // zmień tekst linku
+		        if (link) {
+		            link.textContent = "Kliknij tutaj, aby wpisać kod kuponu";
+		        }
+		    }
+		
+		    // pierwsze tłumaczenie
+		    translateCoupon();
+		
+		    // 👇 KLUCZOWE — reaguje na AJAX / re-render
+		    const observer = new MutationObserver(() => {
+		        translateCoupon();
+		    });
+		
+		    observer.observe(elm, {
+		        childList: true,
+		        subtree: true
+		    });
+		});
 
-			    // Coupon
-			    const coupon = document.querySelector("p.e-woocommerce-coupon-nudge");
-			    if (coupon && !coupon.dataset.translated) {
-			        coupon.innerHTML = "Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj, aby wpisać kod kuponu</a>";
-			        coupon.dataset.translated = "true";
-			    }
-			
-			    // Coupon input
-			    const couponInput = document.querySelector("input#coupon_code");
-			    if (couponInput && !couponInput.dataset.translated) {
-			        couponInput.placeholder = "Kod kuponu";
-			        couponInput.dataset.translated = "true";
-			    }
-			
-			    // Login nudge
-			    const loginNudge = document.querySelector(".e-woocommerce-login-nudge");
-			    if (loginNudge && !loginNudge.dataset.translated) {
-			        loginNudge.textContent = "Jeżeli już robiłeś/-aś u nas zakupy, to proszę zaloguj się.";
-			        loginNudge.dataset.translated = "true";
-			    }
-			
-			    // Password label
-			    const passwordLabel = document.querySelector("label[for=\'password\']");
-			    if (passwordLabel && !passwordLabel.dataset.translated) {
-			        passwordLabel.firstChild.textContent = "Hasło ";
-			        passwordLabel.dataset.translated = "true";
-			    }
-			
-			    // Login button
-			    const loginBtn = document.querySelector("button.e-woocommerce-form-login-submit");
-			    if (loginBtn && !loginBtn.dataset.translated) {
-			        loginBtn.textContent = "Zaloguj się";
-			        loginBtn.dataset.translated = "true";
-			    }
-			
-			    // Remember me
-			    const remember = document.querySelector("span.elementor-woocomemrce-login-rememberme");
-			    if (remember && !remember.dataset.translated) {
-			        remember.textContent = "Zapamiętaj mnie";
-			        remember.dataset.translated = "true";
-			    }
-			
-			    // Lost password
-			    const lost = document.querySelector("p.lost_password > a");
-			    if (lost && !lost.dataset.translated) {
-			        lost.textContent = "Zapomniałeś/-aś hasła?";
-			        lost.dataset.translated = "true";
-			    }
-			
-			    // Coupon description
-			    const couponDesc = document.querySelector("label.e-coupon-anchor-description");
-			    if (couponDesc && !couponDesc.dataset.translated) {
-			        couponDesc.textContent = "Jeżeli masz kod kuponu, wpisz go poniżej.";
-			        couponDesc.dataset.translated = "true";
-			    }
-			
-			    // Apply coupon button
-			    const applyBtn = document.querySelector("button.e-apply-coupon");
-			    if (applyBtn && !applyBtn.dataset.translated) {
-			        applyBtn.textContent = "Wykorzystaj kupon";
-			        applyBtn.dataset.translated = "true";
-			    }
-			}
-			
-			
-			// 🚀 pierwsze odpalenie
-			translateAll();
-			
-			// 👀 jeden observer dla wszystkiego
-			const observer = new MutationObserver(() => {
-			    translateAll();
-			});
-			
-			observer.observe(document.body, {
-			    childList: true,
-			    subtree: true
-			});
 		
 		' );
 }
