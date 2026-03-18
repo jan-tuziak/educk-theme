@@ -102,7 +102,7 @@ function translate_woo_fields(){
 			elm.textContent = "Zapomniałeś/-aś hasła?";
 		});
 
-		waitForElm("p.e-woocommerce-coupon-nudge.e-checkout-secondary-title").then((elm) => {
+		waitForElm("p.e-woocommerce-coupon-nudge").then((elm) => {
 			elm.textContent = "Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj</a>";
 		});
 		
