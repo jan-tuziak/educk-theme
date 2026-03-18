@@ -109,6 +109,10 @@ function translate_woo_fields(){
 		waitForElm("button.e-apply-coupon").then((elm) => {
 			elm.textContent = "Wykorzystaj kupon";
 		});
+
+		waitForElm("p.e-woocommerce-coupon-nudge").then((elm) => {
+			elm.textContent = "Masz kupon?";
+		});
 		
 		' );
 }
