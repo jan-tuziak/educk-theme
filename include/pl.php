@@ -129,14 +129,15 @@ add_shortcode( 'my_webinaria_live_text', 'webinaria_live_text');
 
 // Hardcoded translations for WooCommerce checkout page
 add_filter('gettext', function($translated, $text, $domain) {
+
     if ($domain === 'woocommerce') {
-        if ($text === 'Click here to enter your coupon code') {
-            return 'Kliknij tutaj, aby wpisać kod kuponu';
+
+        if ($text === 'Have a coupon? <a href="#" class="e-show-coupon-form">Click here to enter your coupon code</a>') {
+            return 'Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj, aby wpisać kod kuponu</a>';
         }
-		
-		if ($text === 'Have a coupon?') {
-            return 'Masz kupon?';
-        }
+
     }
+
     return $translated;
+
 }, 20, 3);
