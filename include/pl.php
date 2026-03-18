@@ -115,7 +115,7 @@ function translate_woo_fields(){
 			    // Coupon
 			    const coupon = document.querySelector("p.e-woocommerce-coupon-nudge");
 			    if (coupon && !coupon.dataset.translated) {
-			        coupon.innerHTML = 'Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj, aby wpisać kod kuponu</a>';
+			        coupon.innerHTML = "Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj, aby wpisać kod kuponu</a>";
 			        coupon.dataset.translated = "true";
 			    }
 			
@@ -134,7 +134,7 @@ function translate_woo_fields(){
 			    }
 			
 			    // Password label
-			    const passwordLabel = document.querySelector("label[for='password']");
+			    const passwordLabel = document.querySelector("label[for=\'password\']");
 			    if (passwordLabel && !passwordLabel.dataset.translated) {
 			        passwordLabel.firstChild.textContent = "Hasło ";
 			        passwordLabel.dataset.translated = "true";
