@@ -109,10 +109,6 @@ function translate_woo_fields(){
 		waitForElm("button.e-apply-coupon").then((elm) => {
 			elm.textContent = "Wykorzystaj kupon";
 		});
-
-		waitForElm("p.e-woocommerce-coupon-nudge").then((elm) => {
-			elm.textContent = "Masz kupon?";
-		});
 		
 		' );
 }
@@ -132,8 +128,12 @@ add_filter('gettext', function($translated, $text, $domain) {
 
     if ($domain === 'woocommerce') {
 
-        if ($text === 'Have a coupon? <a href="#" class="e-show-coupon-form">Click here to enter your coupon code</a>') {
-            return 'Masz kupon? <a href="#" class="e-show-coupon-form">Kliknij tutaj, aby wpisać kod kuponu</a>';
+        if ($text === 'Have a coupon?') {
+            return 'Masz kupon?';
+        }
+
+        if ($text === 'Click here to enter your coupon code') {
+            return 'Kliknij tutaj, aby wpisać kod kuponu';
         }
 
     }
