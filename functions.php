@@ -15,6 +15,7 @@ include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
 include_once get_theme_file_path('include/woo.php');
 include_once get_theme_file_path('include/elementor-form-turnstile-handler.php');
+include_once get_theme_file_path('include/slider.php');
 //include_once get_theme_file_path('include/educk-force-coupons.php');
 // include_once get_theme_file_path('include/educk-image-optimizer.php');
 
