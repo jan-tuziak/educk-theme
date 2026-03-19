@@ -76,12 +76,12 @@ add_shortcode('educk_swiper', function ($atts) {
         preloadImages: false,
         lazy: true,
         pagination: {
-          el: root.querySelector('.swiper-pagination'),
+          el: swiperEl.querySelector('.swiper-pagination'),
           clickable: true
         },
         navigation: {
-          nextEl: root.querySelector('.swiper-button-next'),
-          prevEl: root.querySelector('.swiper-button-prev')
+          nextEl: swiperEl.querySelector('.swiper-button-next'),
+          prevEl: swiperEl.querySelector('.swiper-button-prev')
         }
       };
 
@@ -89,7 +89,33 @@ add_shortcode('educk_swiper', function ($atts) {
         opts.autoplay = { delay: delay, disableOnInteraction: false };
       }
 
-      new Swiper(swiperEl, opts);
+      var swiper = new Swiper(swiperEl, opts);
+
+      // Manual event listeners for navigation buttons to ensure they work on mobile
+      var nextBtn = swiperEl.querySelector('.swiper-button-next');
+      var prevBtn = swiperEl.querySelector('.swiper-button-prev');
+
+      function handleNext(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        swiper.slideNext();
+      }
+
+      function handlePrev(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        swiper.slidePrev();
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', handleNext);
+        nextBtn.addEventListener('touchstart', handleNext);
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', handlePrev);
+        prevBtn.addEventListener('touchstart', handlePrev);
+      }
     });
   }
 
