@@ -48,13 +48,6 @@ add_shortcode('educk_swiper', function ($atts) {
       .educk-swiper .swiper-wrapper { height: 100%; }
       .educk-swiper .swiper-slide { height: 100%; display: flex; }
       .educk-swiper .swiper-slide > * { width: 100%; }
-      .educk-swiper .swiper-button-prev,
-      .educk-swiper .swiper-button-next {
-        z-index: 9999;
-        min-width: 44px;
-        min-height: 44px;
-        touch-action: manipulation;
-      }
     ');
 
     // Enqueue ONE initializer (only once per page), guaranteed to run AFTER Swiper loads.
