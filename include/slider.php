@@ -43,11 +43,49 @@ add_shortcode('educk_swiper', function ($atts) {
 
     // Base CSS (inline, tied to the enqueued Swiper style handle).
     wp_add_inline_style('educk-swiper', '
-      .educk-swiper { width: 100%; }
+      .educk-swiper { width: 100%; position: relative; }
       .educk-swiper .swiper { height: 100%; }
       .educk-swiper .swiper-wrapper { height: 100%; }
       .educk-swiper .swiper-slide { height: 100%; display: flex; }
       .educk-swiper .swiper-slide > * { width: 100%; }
+      .educk-swiper .swiper-button-prev,
+      .educk-swiper .swiper-button-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9999;
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: background-color 0.3s;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(255,255,255,0.3);
+      }
+      .educk-swiper .swiper-button-prev {
+        left: 10px;
+      }
+      .educk-swiper .swiper-button-next {
+        right: 10px;
+      }
+      .educk-swiper .swiper-button-prev:hover,
+      .educk-swiper .swiper-button-next:hover {
+        background: rgba(0,0,0,0.8);
+      }
+      .educk-swiper .swiper-button-prev::after,
+      .educk-swiper .swiper-button-next::after {
+        font-family: swiper-icons;
+        font-size: 18px;
+        font-weight: 400;
+      }
     ');
 
     // Enqueue ONE initializer (only once per page), guaranteed to run AFTER Swiper loads.
@@ -72,24 +110,63 @@ add_shortcode('educk_swiper', function ($atts) {
         slidesPerView: 1,
         watchOverflow: true,
         speed: 450,
-        loop: loop,
+        loop: loop, // Restore original loop setting
         preloadImages: false,
         lazy: true,
         pagination: {
-          el: root.querySelector('.swiper-pagination'),
+          el: swiperEl.querySelector('.swiper-pagination'),
           clickable: true
-        },
-        navigation: {
-          nextEl: root.querySelector('.swiper-button-next'),
-          prevEl: root.querySelector('.swiper-button-prev')
         }
+        // Removed navigation from Swiper config to avoid conflicts with manual listeners
       };
 
       if (autoplayEnabled) {
         opts.autoplay = { delay: delay, disableOnInteraction: false };
       }
 
-      new Swiper(swiperEl, opts);
+      var swiper = new Swiper(swiperEl, opts);
+
+      // Manual event listeners for navigation buttons to ensure they work on mobile
+      var nextBtn = swiperEl.querySelector('.swiper-button-next');
+      var prevBtn = swiperEl.querySelector('.swiper-button-prev');
+
+      function handleNext(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (swiper && typeof swiper.slideTo === 'function') {
+          var currentIndex = swiper.realIndex;
+          var totalSlides = swiper.slides.length;
+          var nextIndex = (currentIndex + 1) % totalSlides;
+
+          swiper.slideToLoop(nextIndex);
+        }
+      }
+
+      function handlePrev(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (swiper && typeof swiper.slideTo === 'function') {
+          var currentIndex = swiper.realIndex;
+          var totalSlides = swiper.slides.length;
+          var prevIndex = currentIndex > 0 ? currentIndex - 1 : totalSlides - 1;
+
+          swiper.slideToLoop(prevIndex);
+        }
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', handleNext);
+        nextBtn.addEventListener('touchstart', handleNext);
+        nextBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', handlePrev);
+        prevBtn.addEventListener('touchstart', handlePrev);
+        prevBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
+      }
     });
   }
 
