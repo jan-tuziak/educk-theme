@@ -116,11 +116,8 @@ add_shortcode('educk_swiper', function ($atts) {
         pagination: {
           el: swiperEl.querySelector('.swiper-pagination'),
           clickable: true
-        },
-        navigation: {
-          nextEl: swiperEl.querySelector('.swiper-button-next'),
-          prevEl: swiperEl.querySelector('.swiper-button-prev')
         }
+        // Removed navigation from Swiper config to avoid conflicts with manual listeners
       };
 
       if (autoplayEnabled) {
@@ -137,9 +134,10 @@ add_shortcode('educk_swiper', function ($atts) {
         e.preventDefault();
         e.stopPropagation();
         console.log('Next button clicked/touched, swiper instance:', swiper);
+        console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
         if (swiper && typeof swiper.slideNext === 'function') {
           swiper.slideNext();
-          console.log('Called slideNext');
+          console.log('Called slideNext, new index:', swiper.realIndex, swiper.activeIndex);
         } else {
           console.error('Swiper instance or slideNext method not available');
         }
@@ -149,9 +147,10 @@ add_shortcode('educk_swiper', function ($atts) {
         e.preventDefault();
         e.stopPropagation();
         console.log('Prev button clicked/touched, swiper instance:', swiper);
+        console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
         if (swiper && typeof swiper.slidePrev === 'function') {
           swiper.slidePrev();
-          console.log('Called slidePrev');
+          console.log('Called slidePrev, new index:', swiper.realIndex, swiper.activeIndex);
         } else {
           console.error('Swiper instance or slidePrev method not available');
         }
@@ -161,13 +160,24 @@ add_shortcode('educk_swiper', function ($atts) {
         nextBtn.addEventListener('click', handleNext);
         nextBtn.addEventListener('touchstart', handleNext);
         nextBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
+        console.log('Added event listeners to next button');
+      } else {
+        console.error('Next button not found');
       }
 
       if (prevBtn) {
         prevBtn.addEventListener('click', handlePrev);
         prevBtn.addEventListener('touchstart', handlePrev);
         prevBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
+        console.log('Added event listeners to prev button');
+      } else {
+        console.error('Prev button not found');
       }
+
+      // Debug: Check swiper state periodically
+      setInterval(function() {
+        console.log('Swiper status check - destroyed:', swiper.destroyed, 'initialized:', swiper.initialized, 'activeIndex:', swiper.activeIndex);
+      }, 5000);
     });
   }
 
