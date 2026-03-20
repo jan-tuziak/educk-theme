@@ -110,7 +110,7 @@ add_shortcode('educk_swiper', function ($atts) {
         slidesPerView: 1,
         watchOverflow: true,
         speed: 450,
-        loop: loop,
+        loop: false, // Temporarily disable loop to test
         preloadImages: false,
         lazy: true,
         pagination: {
@@ -126,6 +126,12 @@ add_shortcode('educk_swiper', function ($atts) {
 
       var swiper = new Swiper(swiperEl, opts);
 
+      console.log('Swiper initialized:', swiper);
+      console.log('Swiper slides count:', swiper.slides ? swiper.slides.length : 'no slides');
+      console.log('Swiper params:', swiper.params);
+      console.log('Swiper wrapper:', swiper.wrapperEl);
+      console.log('Swiper slides elements:', swiper.slides);
+
       // Manual event listeners for navigation buttons to ensure they work on mobile
       var nextBtn = swiperEl.querySelector('.swiper-button-next');
       var prevBtn = swiperEl.querySelector('.swiper-button-prev');
@@ -135,9 +141,16 @@ add_shortcode('educk_swiper', function ($atts) {
         e.stopPropagation();
         console.log('Next button clicked/touched, swiper instance:', swiper);
         console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
+        console.log('Swiper slides length:', swiper.slides ? swiper.slides.length : 'no slides');
+        console.log('Loop enabled:', swiper.params.loop);
+
         if (swiper && typeof swiper.slideNext === 'function') {
+          var oldIndex = swiper.activeIndex;
           swiper.slideNext();
-          console.log('Called slideNext, new index:', swiper.realIndex, swiper.activeIndex);
+          setTimeout(function() {
+            console.log('After slideNext - old index:', oldIndex, 'new index:', swiper.activeIndex, 'realIndex:', swiper.realIndex);
+            console.log('Visually moved?', oldIndex !== swiper.activeIndex);
+          }, 100);
         } else {
           console.error('Swiper instance or slideNext method not available');
         }
@@ -148,9 +161,26 @@ add_shortcode('educk_swiper', function ($atts) {
         e.stopPropagation();
         console.log('Prev button clicked/touched, swiper instance:', swiper);
         console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
+        console.log('Swiper slides length:', swiper.slides ? swiper.slides.length : 'no slides');
+        console.log('Loop enabled:', swiper.params.loop);
+
         if (swiper && typeof swiper.slidePrev === 'function') {
+          var oldIndex = swiper.activeIndex;
           swiper.slidePrev();
-          console.log('Called slidePrev, new index:', swiper.realIndex, swiper.activeIndex);
+          setTimeout(function() {
+            console.log('After slidePrev - old index:', oldIndex, 'new index:', swiper.activeIndex, 'realIndex:', swiper.realIndex);
+            console.log('Visually moved?', oldIndex !== swiper.activeIndex);
+
+            // If slidePrev didn't work, try manual slideTo
+            if (oldIndex === swiper.activeIndex) {
+              console.log('slidePrev failed, trying manual slideTo...');
+              var targetIndex = swiper.realIndex > 0 ? swiper.realIndex - 1 : (swiper.slides.length - 1);
+              swiper.slideTo(targetIndex);
+              setTimeout(function() {
+                console.log('After manual slideTo:', swiper.activeIndex, swiper.realIndex);
+              }, 100);
+            }
+          }, 100);
         } else {
           console.error('Swiper instance or slidePrev method not available');
         }
