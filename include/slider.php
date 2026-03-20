@@ -110,7 +110,7 @@ add_shortcode('educk_swiper', function ($atts) {
         slidesPerView: 1,
         watchOverflow: true,
         speed: 450,
-        loop: false, // Temporarily disable loop to test
+        loop: loop, // Restore original loop setting
         preloadImages: false,
         lazy: true,
         pagination: {
@@ -126,12 +126,6 @@ add_shortcode('educk_swiper', function ($atts) {
 
       var swiper = new Swiper(swiperEl, opts);
 
-      console.log('Swiper initialized:', swiper);
-      console.log('Swiper slides count:', swiper.slides ? swiper.slides.length : 'no slides');
-      console.log('Swiper params:', swiper.params);
-      console.log('Swiper wrapper:', swiper.wrapperEl);
-      console.log('Swiper slides elements:', swiper.slides);
-
       // Manual event listeners for navigation buttons to ensure they work on mobile
       var nextBtn = swiperEl.querySelector('.swiper-button-next');
       var prevBtn = swiperEl.querySelector('.swiper-button-prev');
@@ -139,50 +133,26 @@ add_shortcode('educk_swiper', function ($atts) {
       function handleNext(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Next button clicked/touched, swiper instance:', swiper);
-        console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
-        console.log('Swiper slides length:', swiper.slides ? swiper.slides.length : 'no slides');
-        console.log('Loop enabled:', swiper.params.loop);
 
-        if (swiper && typeof swiper.slideNext === 'function') {
-          var oldIndex = swiper.activeIndex;
-          swiper.slideNext();
-          setTimeout(function() {
-            console.log('After slideNext - old index:', oldIndex, 'new index:', swiper.activeIndex, 'realIndex:', swiper.realIndex);
-            console.log('Visually moved?', oldIndex !== swiper.activeIndex);
-          }, 100);
-        } else {
-          console.error('Swiper instance or slideNext method not available');
+        if (swiper && typeof swiper.slideTo === 'function') {
+          var currentIndex = swiper.realIndex;
+          var totalSlides = swiper.slides.length;
+          var nextIndex = (currentIndex + 1) % totalSlides;
+
+          swiper.slideToLoop(nextIndex);
         }
       }
 
       function handlePrev(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Prev button clicked/touched, swiper instance:', swiper);
-        console.log('Current slide index:', swiper.realIndex, 'Active slide:', swiper.activeIndex);
-        console.log('Swiper slides length:', swiper.slides ? swiper.slides.length : 'no slides');
-        console.log('Loop enabled:', swiper.params.loop);
 
-        if (swiper && typeof swiper.slidePrev === 'function') {
-          var oldIndex = swiper.activeIndex;
-          swiper.slidePrev();
-          setTimeout(function() {
-            console.log('After slidePrev - old index:', oldIndex, 'new index:', swiper.activeIndex, 'realIndex:', swiper.realIndex);
-            console.log('Visually moved?', oldIndex !== swiper.activeIndex);
+        if (swiper && typeof swiper.slideTo === 'function') {
+          var currentIndex = swiper.realIndex;
+          var totalSlides = swiper.slides.length;
+          var prevIndex = currentIndex > 0 ? currentIndex - 1 : totalSlides - 1;
 
-            // If slidePrev didn't work, try manual slideTo
-            if (oldIndex === swiper.activeIndex) {
-              console.log('slidePrev failed, trying manual slideTo...');
-              var targetIndex = swiper.realIndex > 0 ? swiper.realIndex - 1 : (swiper.slides.length - 1);
-              swiper.slideTo(targetIndex);
-              setTimeout(function() {
-                console.log('After manual slideTo:', swiper.activeIndex, swiper.realIndex);
-              }, 100);
-            }
-          }, 100);
-        } else {
-          console.error('Swiper instance or slidePrev method not available');
+          swiper.slideToLoop(prevIndex);
         }
       }
 
@@ -190,24 +160,13 @@ add_shortcode('educk_swiper', function ($atts) {
         nextBtn.addEventListener('click', handleNext);
         nextBtn.addEventListener('touchstart', handleNext);
         nextBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
-        console.log('Added event listeners to next button');
-      } else {
-        console.error('Next button not found');
       }
 
       if (prevBtn) {
         prevBtn.addEventListener('click', handlePrev);
         prevBtn.addEventListener('touchstart', handlePrev);
         prevBtn.addEventListener('touchend', function(e) { e.preventDefault(); });
-        console.log('Added event listeners to prev button');
-      } else {
-        console.error('Prev button not found');
       }
-
-      // Debug: Check swiper state periodically
-      setInterval(function() {
-        console.log('Swiper status check - destroyed:', swiper.destroyed, 'initialized:', swiper.initialized, 'activeIndex:', swiper.activeIndex);
-      }, 5000);
     });
   }
 
