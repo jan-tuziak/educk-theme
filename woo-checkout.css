@@ -112,6 +112,12 @@ body.woocommerce-checkout .select2-container--open .select2-selection--single .s
   border-width: 0 5px 6px 5px !important;
 }
 
+body.woocommerce-checkout .select2-container--open .select2-selection--single,
+body.woocommerce-checkout .select2-container--focus .select2-selection--single {
+  border-color: #ffc818 !important;
+  box-shadow: 0 0 0 3px rgba(255, 200, 24, 0.28) !important;
+}
+
 body.woocommerce-checkout .select2-dropdown {
   border: 1px solid #d9dce1 !important;
   border-radius: 12px !important;
@@ -132,6 +138,11 @@ body.woocommerce-checkout .select2-search__field {
   border-radius: 10px !important;
   padding: 0 12px !important;
   box-shadow: none !important;
+}
+
+body.woocommerce-checkout .select2-search__field:focus {
+  border-color: #ffc818 !important;
+  box-shadow: 0 0 0 3px rgba(255, 200, 24, 0.2) !important;
 }
 
 body.woocommerce-checkout .select2-results__options {
