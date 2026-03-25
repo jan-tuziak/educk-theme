@@ -260,6 +260,7 @@ body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > lab
   flex: 1 1 auto;
   min-width: 0;
   gap: 10px;
+  font-size: 18px !important;
 }
 
 body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > label img {
