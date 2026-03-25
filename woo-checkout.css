@@ -112,12 +112,6 @@ body.woocommerce-checkout .select2-container--open .select2-selection--single .s
   border-width: 0 5px 6px 5px !important;
 }
 
-body.woocommerce-checkout .select2-container--open .select2-selection--single,
-body.woocommerce-checkout .select2-container--focus .select2-selection--single {
-  border-color: #0a2540 !important;
-  box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.12) !important;
-}
-
 body.woocommerce-checkout .select2-dropdown {
   border: 1px solid #d9dce1 !important;
   border-radius: 12px !important;
@@ -162,6 +156,11 @@ body.woocommerce-checkout .select2-results__option--highlighted[aria-selected],
 body.woocommerce-checkout .select2-results__option--highlighted[aria-selected="true"] {
   background: #dbeafe !important;
   color: #0a2540 !important;
+}
+
+/* Hide clear X on single selects to avoid overlap with arrow icon */
+body.woocommerce-checkout .select2-container--default .select2-selection--single .select2-selection__clear {
+  display: none !important;
 }
 
 /* Checkbox and radio spacing */
