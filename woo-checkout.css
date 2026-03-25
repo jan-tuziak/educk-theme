@@ -5,11 +5,11 @@
    ========================= */
 
 /* Page background */
-body.woocommerce-checkout {
+/* body.woocommerce-checkout {
   background: #f6f9fc;
-}
+} */
 
-/* Optional: centered checkout card wrapper
+/* /* Optional: centered checkout card wrapper
    Apply .checkout-card to the Elementor container if you can */
 body.woocommerce-checkout .checkout-card {
   max-width: 520px;
@@ -25,16 +25,16 @@ body.woocommerce-checkout .checkout-card {
 body.woocommerce-checkout form.checkout,
 body.woocommerce-checkout .col2-set {
   display: block;
-}
+} */
 
-body.woocommerce-checkout .col2-set .col-1,
+/* body.woocommerce-checkout .col2-set .col-1,
 body.woocommerce-checkout .col2-set .col-2,
 body.woocommerce-checkout #customer_details,
 body.woocommerce-checkout #order_review,
 body.woocommerce-checkout #order_review_heading {
   width: 100% !important;
   float: none !important;
-}
+} */
 
 /* Headings */
 body.woocommerce-checkout h3 {
@@ -88,13 +88,13 @@ body.woocommerce-checkout form textarea {
 }
 
 /* Placeholder */
-body.woocommerce-checkout form .input-text::placeholder,
+/* body.woocommerce-checkout form .input-text::placeholder,
 body.woocommerce-checkout form textarea::placeholder {
   color: #9ca3af;
   opacity: 1;
-}
+} */
 
-/* Focus */
+/* Focus
 body.woocommerce-checkout form .input-text:focus,
 body.woocommerce-checkout form select:focus,
 body.woocommerce-checkout form textarea:focus,
@@ -103,7 +103,7 @@ body.woocommerce-checkout .select2-container--default.select2-container--open .s
   border-color: #635bff !important;
   box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.14) !important;
   outline: none !important;
-}
+} */
 
 /* Select2 closed field alignment */
 body.woocommerce-checkout .select2-container .select2-selection--single .select2-selection__rendered {
@@ -164,7 +164,7 @@ body.woocommerce-checkout #payment ul.payment_methods li:last-child {
 body.woocommerce-checkout #payment div.payment_box {
   margin: 12px 0 0 !important;
   padding: 14px 16px !important;
-  background: #f9fafb !important;
+  /* background: #f9fafb !important; */
   border: 1px solid #e5e7eb !important;
   border-radius: 12px !important;
   color: #374151;
@@ -210,8 +210,8 @@ body.woocommerce-checkout .button.alt {
   border: 0 !important;
   border-radius: 12px !important;
   padding: 14px 20px !important;
-  background: #111827 !important;
-  color: #ffffff !important;
+  /* background: #111827 !important; */
+  /* color: #ffffff !important; */
   font-size: 16px !important;
   font-weight: 600 !important;
   line-height: 1.2 !important;
