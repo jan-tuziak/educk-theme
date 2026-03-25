@@ -192,7 +192,7 @@ body.woocommerce-checkout table.shop_table tr:first-child td {
 }
 
 /* Notices */
-body.woocommerce-checkout .woocommerce-error,
+/* body.woocommerce-checkout .woocommerce-error,
 body.woocommerce-checkout .woocommerce-info,
 body.woocommerce-checkout .woocommerce-message {
   border: 1px solid #e5e7eb !important;
@@ -200,7 +200,7 @@ body.woocommerce-checkout .woocommerce-message {
   background: #ffffff !important;
   padding: 14px 16px !important;
   box-shadow: none !important;
-}
+} */
 
 /* Place order button */
 body.woocommerce-checkout #payment #place_order,
