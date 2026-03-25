@@ -73,24 +73,95 @@ body.woocommerce-checkout form textarea {
   resize: vertical;
 }
 
-/* Select2 closed field alignment */
+/* Select2: Stripe-like polish and readable state colors */
+body.woocommerce-checkout .select2-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+body.woocommerce-checkout .select2-container .select2-selection--single {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 52px !important;
+  padding: 0 44px 0 16px !important;
+}
+
 body.woocommerce-checkout .select2-container .select2-selection--single .select2-selection__rendered {
-  padding-left: 0 !important;
-  padding-right: 28px !important;
-  line-height: 50px !important;
+  padding: 0 !important;
+  line-height: 1.25 !important;
   color: #1f2937 !important;
 }
 
+body.woocommerce-checkout .select2-container .select2-selection__placeholder {
+  color: #6b7280 !important;
+}
+
 body.woocommerce-checkout .select2-container .select2-selection--single .select2-selection__arrow {
-  height: 50px !important;
+  height: 100% !important;
+  width: 22px !important;
   right: 12px !important;
 }
 
-/* Remove weird inner borders/shadows */
-body.woocommerce-checkout .select2-dropdown,
+body.woocommerce-checkout .select2-container .select2-selection--single .select2-selection__arrow b {
+  border-color: #1f2937 transparent transparent transparent !important;
+  border-width: 6px 5px 0 5px !important;
+}
+
+body.woocommerce-checkout .select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #1f2937 transparent !important;
+  border-width: 0 5px 6px 5px !important;
+}
+
+body.woocommerce-checkout .select2-container--open .select2-selection--single,
+body.woocommerce-checkout .select2-container--focus .select2-selection--single {
+  border-color: #0a2540 !important;
+  box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.12) !important;
+}
+
+body.woocommerce-checkout .select2-dropdown {
+  border: 1px solid #d9dce1 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.12) !important;
+  overflow: hidden;
+}
+
+body.woocommerce-checkout .select2-search--dropdown {
+  padding: 10px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #edf2f7;
+}
+
 body.woocommerce-checkout .select2-search__field {
-  border-color: #d9dce1 !important;
+  min-height: 42px !important;
+  border: 1px solid #d9dce1 !important;
+  border-radius: 10px !important;
+  padding: 0 12px !important;
   box-shadow: none !important;
+}
+
+body.woocommerce-checkout .select2-results__options {
+  max-height: 280px !important;
+  padding: 6px 0 !important;
+}
+
+body.woocommerce-checkout .select2-results__option {
+  padding: 12px 14px !important;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+  color: #1f2937 !important;
+}
+
+body.woocommerce-checkout .select2-results__option[aria-selected="true"] {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+body.woocommerce-checkout .select2-results__option--highlighted[aria-selected],
+body.woocommerce-checkout .select2-results__option--highlighted[aria-selected="true"] {
+  background: #dbeafe !important;
+  color: #0a2540 !important;
 }
 
 /* Checkbox and radio spacing */
