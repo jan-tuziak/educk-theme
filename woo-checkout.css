@@ -192,7 +192,7 @@ body.woocommerce-checkout #payment ul.payment_methods li:last-child {
 
 body.woocommerce-checkout #payment div.payment_box {
   flex: 0 0 100%;
-  margin: 12px 0 0 38px !important;
+  margin: 12px 0 0 !important;
   padding: 14px 16px !important;
   /* background: #f9fafb !important; */
   border: 1px solid #e5e7eb !important;
