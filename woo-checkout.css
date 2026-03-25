@@ -297,6 +297,7 @@ body.woocommerce-checkout form textarea {
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce {
   max-width: 980px;
   margin: 0 auto;
+  --checkout-card-bg: #ededed;
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .woocommerce-form-login-toggle,
@@ -305,7 +306,7 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.woocomme
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .woocommerce-form-coupon-toggle .woocommerce-info {
-  background: #e5e5e5 !important;
+  background: var(--checkout-card-bg) !important;
   border: 0 !important;
   border-radius: 36px !important;
   color: #3a3e40 !important;
@@ -320,7 +321,7 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .woocommerce-
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon {
-  background: #e5e5e5;
+  background: var(--checkout-card-bg);
   border: 0;
   border-radius: 28px;
   padding: 18px 24px;
@@ -332,7 +333,7 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #customer_details {
-  background: #e5e5e5;
+  background: var(--checkout-card-bg);
   border-radius: 42px;
   padding: 38px 34px;
   margin-bottom: 28px;
@@ -354,13 +355,13 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout
   font-size: 48px;
   line-height: 1.08;
   letter-spacing: -0.02em;
-  font-weight: 500;
+  font-weight: 400;
   margin: 0 0 22px;
   color: #3a3e40;
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout .woocommerce-checkout-review-order-table {
-  background: #e5e5e5;
+  background: var(--checkout-card-bg);
   border-radius: 42px;
   border-collapse: separate !important;
   border-spacing: 0 !important;
@@ -374,9 +375,36 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #payment {
-  background: #e9c84d !important;
+  background: #ffc818 !important;
   border-radius: 42px !important;
   padding: 24px 28px !important;
+}
+
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #payment div.payment_box {
+  background: var(--checkout-card-bg) !important;
+  border-color: #e1e1e1 !important;
+}
+
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon .form-row.form-row-first {
+  width: 58%;
+  margin-bottom: 0;
+}
+
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon .form-row.form-row-last {
+  width: 38%;
+  margin-bottom: 0;
+}
+
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon button.button {
+  width: 100%;
+  min-height: 52px;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #181a1f !important;
+  color: #ffc818 !important;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #payment #place_order {
@@ -402,5 +430,12 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout
   body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #customer_details h3,
   body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #order_review_heading {
     font-size: 34px;
+  }
+
+  body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon .form-row.form-row-first,
+  body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon .form-row.form-row-last {
+    width: 100%;
+    float: none;
+    margin-bottom: 12px;
   }
 }
