@@ -23,6 +23,12 @@ body.woocommerce-checkout {
   --wc-color-shortcode-text: #3a3e40;
   --wc-color-shortcode-surface: #ededed;
   --wc-color-button-dark: #181a1f;
+  --wc-color-coupon-btn-bg: var(--wc-color-shortcode-surface);
+  --wc-color-coupon-btn-text: var(--wc-color-shortcode-text);
+  --wc-color-coupon-btn-border: #4a4f54;
+  --wc-color-coupon-btn-hover-bg: #f3cb4a;
+  --wc-color-coupon-btn-hover-text: var(--wc-color-shortcode-text);
+  --wc-color-coupon-btn-hover-border: #b78912;
   --wc-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
   --wc-shadow-dropdown: 0 12px 28px rgba(16, 24, 40, 0.12);
   --wc-focus-ring: 0 0 0 3px rgba(255, 200, 24, 0.28);
@@ -425,13 +431,21 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_cou
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon button.button {
   width: 100%;
   min-height: 52px;
-  border: 0 !important;
+  border: 2px solid var(--wc-color-coupon-btn-border) !important;
   border-radius: 12px !important;
-  background: var(--wc-color-button-dark) !important;
-  color: var(--wc-color-accent) !important;
+  background: var(--wc-color-coupon-btn-bg) !important;
+  color: var(--wc-color-coupon-btn-text) !important;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.2;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon button.button:hover,
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce .checkout_coupon.woocommerce-form-coupon button.button:focus {
+  background: var(--wc-color-coupon-btn-hover-bg) !important;
+  color: var(--wc-color-coupon-btn-hover-text) !important;
+  border-color: var(--wc-color-coupon-btn-hover-border) !important;
 }
 
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #payment #place_order {
