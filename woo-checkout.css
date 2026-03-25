@@ -157,22 +157,26 @@ body.woocommerce-checkout #payment ul.payment_methods li {
   border-bottom: 1px solid #eef2f7;
 }
 
-/* Payment method row: radio on the left, label content on the right */
+/* Payment method row: input + label (+ optional payment box) */
 body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  column-gap: 10px;
 }
 
 body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > input.input-radio {
-  margin: 0 !important;
+  flex: 0 0 auto;
+  margin: 0 10px 0 0 !important;
+  float: none !important;
+  position: static !important;
+  align-self: center;
 }
 
 body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > label {
   display: flex !important;
   align-items: center;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
   gap: 10px;
 }
 
@@ -187,8 +191,8 @@ body.woocommerce-checkout #payment ul.payment_methods li:last-child {
 }
 
 body.woocommerce-checkout #payment div.payment_box {
-  grid-column: 2;
-  margin: 12px 0 0 !important;
+  flex: 0 0 100%;
+  margin: 12px 0 0 38px !important;
   padding: 14px 16px !important;
   /* background: #f9fafb !important; */
   border: 1px solid #e5e7eb !important;
