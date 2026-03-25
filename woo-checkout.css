@@ -19,7 +19,7 @@ body.woocommerce-checkout {
   --wc-color-selected-text: #0f172a;
   --wc-color-highlight-bg: #dbeafe;
   --wc-color-highlight-text: #0a2540;
-  --wc-color-accent: #ffc818;
+  --wc-color-accent: rgb(243, 203, 74);
   --wc-color-shortcode-text: #3a3e40;
   --wc-color-shortcode-surface: #ededed;
   --wc-color-button-dark: #181a1f;
