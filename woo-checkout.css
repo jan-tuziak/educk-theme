@@ -408,6 +408,11 @@ body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout
   padding: 16px 26px !important;
 }
 
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout .woocommerce-checkout-review-order-table thead th,
+body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout .woocommerce-checkout-review-order-table tfoot th {
+  font-weight: 400;
+}
+
 body.woocommerce-checkout .elementor-widget-shortcode .woocommerce form.checkout #payment {
   background: var(--wc-color-accent) !important;
   border-radius: 42px !important;
