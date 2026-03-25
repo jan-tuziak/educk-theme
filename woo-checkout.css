@@ -157,11 +157,37 @@ body.woocommerce-checkout #payment ul.payment_methods li {
   border-bottom: 1px solid #eef2f7;
 }
 
+/* Payment method row: radio on the left, label content on the right */
+body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
+}
+
+body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > input.input-radio {
+  margin: 0 !important;
+}
+
+body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > label {
+  display: flex !important;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+body.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method > label img {
+  margin-left: auto !important;
+  float: none !important;
+  display: block;
+}
+
 body.woocommerce-checkout #payment ul.payment_methods li:last-child {
   border-bottom: 0;
 }
 
 body.woocommerce-checkout #payment div.payment_box {
+  grid-column: 2;
   margin: 12px 0 0 !important;
   padding: 14px 16px !important;
   /* background: #f9fafb !important; */
