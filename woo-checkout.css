@@ -67,7 +67,7 @@ body.woocommerce-checkout form .form-row {
 body.woocommerce-checkout form .form-row label {
   display: block;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.4;
   font-weight: 500;
   color: var(--wc-color-label);
