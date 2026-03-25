@@ -141,8 +141,8 @@ body.woocommerce-checkout .wc_payment_method label {
 }
 
 /* Payment box */
-/* body.woocommerce-checkout #payment {
-  background: transparent !important;
+body.woocommerce-checkout #payment {
+  /* background: transparent !important; */
   border: 0 !important;
 }
 
@@ -172,7 +172,7 @@ body.woocommerce-checkout #payment div.payment_box {
 
 body.woocommerce-checkout #payment div.payment_box::before {
   display: none !important;
-} */
+}
 
 /* Order review table */
 body.woocommerce-checkout table.shop_table {
