@@ -34,41 +34,28 @@ function bbloomer_add_price_suffix_price_inc_tax( $suffix, $product, $price, $qt
 add_action( 'woocommerce_after_checkout_form', 'conditionally_hide_show_new_field', 9999 );
 function conditionally_hide_show_new_field() {
   wc_enqueue_js( "
-    (function($){
-        function toggleVatInvoiceFields() {
-            var isChecked = $('input#checkbox_vat_invoice').is(':checked');
-            var selectors = [
-                '#billing_tax_no_field',
-                '#billing_company_name_field',
-                '#billing_state_field',
-                '#billing_address_1_field',
-                '#billing_city_field'
-            ];
-
-            selectors.forEach(function(selector){
-                var $field = $(selector);
-                if (!$field.length) return;
-
-                if (isChecked) {
-                    $field.stop(true, true).fadeIn();
-                } else {
-                    $field.stop(true, true).hide();
-                    $field.find('input, select, textarea').val('');
-                }
-            });
+    jQuery('input#checkbox_vat_invoice').change(function() {
+        if (! this.checked) {
+            // HIDE IF NOT CHECKED
+            jQuery(`#billing_tax_no_field`).fadeOut();
+            jQuery(`#billing_tax_no_field input`).val('');         
+            jQuery(`#billing_company_name_field`).fadeOut();
+            jQuery(`#billing_company_name_field input`).val('');         
+            jQuery(`#billing_state_field`).fadeOut();
+            jQuery(`#billing_state_field input`).val('');         
+            jQuery(`#billing_address_1_field`).fadeOut();
+            jQuery(`#billing_address_1_field input`).val('');         
+            jQuery(`#billing_city_field`).fadeOut();
+            jQuery(`#billing_city_field input`).val('');             
+        } else {
+            // SHOW IF CHECKED
+            jQuery(`#billing_tax_no_field`).fadeIn();
+            jQuery(`#billing_company_name_field`).fadeIn();
+            jQuery(`#billing_state_field`).fadeIn();
+            jQuery(`#billing_address_1_field`).fadeIn();
+            jQuery(`#billing_city_field`).fadeIn();
         }
-
-        // User interaction
-        $(document.body).on('change', 'input#checkbox_vat_invoice', toggleVatInvoiceFields);
-
-        // WooCommerce can re-show locale-based address fields after country/checkout refresh
-        $(document.body).on('country_to_state_changed updated_checkout', function() {
-            setTimeout(toggleVatInvoiceFields, 0);
-        });
-
-        // Initial state
-        toggleVatInvoiceFields();
-    })(jQuery);
+    }).change();
   "); 
 }
 
