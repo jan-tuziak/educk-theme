@@ -29,9 +29,19 @@ function theme_enqueue_styles() {
 			'child-style', 
 			get_stylesheet_directory_uri() . '/style.css', 
 			array(),
-			wp_get_theme()->get( 'Version' ), //proper xstyle versioning for production
-			// filemtime(get_stylesheet_directory() . "/style.css" ), //quick style versioning for development (omits caching)
+			// wp_get_theme()->get( 'Version' ), //proper xstyle versioning for production
+			filemtime(get_stylesheet_directory() . "/style.css" ), //quick style versioning for development (omits caching)
 			'all');
+
+		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+			wp_enqueue_style(
+				'woo-checkout-style',
+				get_stylesheet_directory_uri() . '/woo-checkout.css',
+				array( 'child-style' ),
+				filemtime( get_stylesheet_directory() . '/woo-checkout.css' ),
+				'all'
+			);
+		}
 }
 
 /**
