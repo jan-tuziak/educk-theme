@@ -42,7 +42,17 @@ function theme_enqueue_styles() {
 				'all'
 			);
 		}
-}
+
+		if ( function_exists( 'is_cart' ) && is_cart() ) {
+			wp_enqueue_style(
+				'woo-cart-style',
+				get_stylesheet_directory_uri() . '/woo-cart.css',
+				array( 'child-style' ),
+				filemtime( get_stylesheet_directory() . '/woo-cart.css' ),
+				'all'
+			);
+		}
+	}
 
 /**
  * Add MailerLite JavaScript code

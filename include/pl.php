@@ -106,7 +106,7 @@ function translate_woo_fields(){
 			elm.textContent = "Jeżeli masz kod kuponu, wpisz go poniżej.";
 		});
 		
-		waitForElm("button.e-apply-coupon").then((elm) => {
+		waitForElm("button.e-apply-coupon, button[name=\"apply_coupon\"]").then((elm) => {
 			elm.textContent = "Wykorzystaj kupon";
 		});
 
