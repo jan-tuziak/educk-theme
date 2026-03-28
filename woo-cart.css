@@ -74,9 +74,9 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table {
 }
 
 body.woocommerce-cart .woocommerce-cart-form table.shop_table thead th {
-  font-size: 32px;
-  line-height: 1.1;
-  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 400;
   color: var(--wc-color-shortcode-text);
   border: 0 !important;
   padding: 34px 20px 16px !important;
@@ -124,7 +124,7 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-remove 
   width: auto;
   height: auto;
   line-height: 1;
-  font-size: 44px;
+  font-size: 32px;
   font-weight: 300;
   border-radius: 0;
   color: #b78912 !important;
@@ -145,10 +145,10 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-thumbna
 }
 
 body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-name {
-  font-size: 42px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-weight: 300;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
 body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-name a {
@@ -157,9 +157,9 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-name a 
 }
 
 body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-price {
-  font-size: 48px;
-  line-height: 1.05;
-  font-weight: 300;
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 400;
   color: var(--wc-color-shortcode-text);
   white-space: nowrap;
 }
@@ -189,7 +189,7 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table td.actions .coupon
   background: #f5f5f5;
   padding: 0 24px;
   margin: 0;
-  font-size: 44px;
+  font-size: 16px;
   color: var(--wc-color-shortcode-text);
 }
 
@@ -201,7 +201,7 @@ body.woocommerce-cart .woocommerce-cart-form table.shop_table td.actions .coupon
   color: var(--wc-color-coupon-btn-text) !important;
   padding: 0 32px !important;
   margin: 0 !important;
-  font-size: 42px;
+  font-size: 18px;
   line-height: 1.2;
   font-weight: 600;
   white-space: nowrap;
@@ -227,10 +227,10 @@ body.woocommerce-cart .cart-collaterals .cart_totals {
 
 body.woocommerce-cart .cart-collaterals .cart_totals > h2 {
   margin: 0 0 20px;
-  font-size: 54px;
-  line-height: 1.05;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   color: var(--wc-color-shortcode-text);
 }
 
@@ -243,7 +243,7 @@ body.woocommerce-cart .cart-collaterals .cart_totals table.shop_table th,
 body.woocommerce-cart .cart-collaterals .cart_totals table.shop_table td {
   border-top: 0 !important;
   padding: 10px 0 !important;
-  font-size: 44px;
+  font-size: 18px;
   line-height: 1.2;
   font-weight: 400;
   color: var(--wc-color-shortcode-text);
@@ -282,7 +282,7 @@ body.woocommerce-cart .cart-collaterals .wc-proceed-to-checkout .checkout-button
   color: var(--wc-color-accent) !important;
   margin: 8px 0 0 !important;
   padding: 18px 28px !important;
-  font-size: 42px;
+  font-size: 20px;
   line-height: 1.2;
   font-weight: 600;
   text-align: center;
@@ -373,13 +373,13 @@ body.woocommerce-cart #content .woocommerce > .woocommerce-error {
 
   body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-name {
     grid-area: name;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.25;
   }
 
   body.woocommerce-cart .woocommerce-cart-form table.shop_table td.product-price {
     grid-area: price;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 600;
     padding-right: 0 !important;
@@ -412,20 +412,20 @@ body.woocommerce-cart #content .woocommerce > .woocommerce-error {
   }
 
   body.woocommerce-cart .cart-collaterals .cart_totals > h2 {
-    font-size: 48px;
+    font-size: 30px;
     margin-bottom: 14px;
   }
 
   body.woocommerce-cart .cart-collaterals .cart_totals table.shop_table th,
   body.woocommerce-cart .cart-collaterals .cart_totals table.shop_table td {
-    font-size: 32px;
+    font-size: 18px;
     padding: 6px 0 !important;
   }
 
   body.woocommerce-cart .cart-collaterals .wc-proceed-to-checkout .checkout-button {
     min-height: 62px;
     border-radius: 31px !important;
-    font-size: 28px;
+    font-size: 20px;
     padding: 14px 20px !important;
   }
 }
