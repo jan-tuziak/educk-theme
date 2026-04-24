@@ -3,7 +3,7 @@ Theme Name: Educk Theme
 Author: Jan Tuziak
 Author URI: http://educk.org/#about/
 Description: My theme. Do not download it. Uses Hello Elementor as template.
-Version: 1.10
+Version: 1.11
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Template: hello-elementor
@@ -211,5 +211,7 @@ h2#c-ttl, h2#s-ttl {
   font-size: 10px;
   font-weight: 600;
   line-height: 1;
-  vertical-align: middle;
+
+  position: relative;
+  top: -8px;       /* podnosi badge */
 }
