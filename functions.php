@@ -9,7 +9,8 @@ if (empty($host)) {
 
 $parts = explode('.', $host);
 $TLD = strtolower(end($parts)); // 'pl' or 'org'
-$include_file = ($TLD === 'pl') ? 'include/pl.php' : 'include/org.php';
+$is_pl = ($TLD === 'pl');
+$include_file = $is_pl ? 'include/pl.php' : 'include/org.php';
 
 include_once get_theme_file_path($include_file);
 include_once get_theme_file_path('include/wp-login-modified.php');
@@ -174,10 +175,7 @@ function my_expiration_filter($seconds, $user_id, $remember){
 
 
 add_action('init', function () {
-    // Use the $TLD computed at the top of functions.php
-    global $TLD;
-
-    $is_pl = ($TLD === 'pl');
+    global $is_pl;
 
     $singular = $is_pl ? 'Typ darmowego zasobu' : 'Free Resource type';
     $plural   = $is_pl ? 'Typy darmowych zasobów' : 'Free Resource types';
@@ -219,10 +217,7 @@ add_action('init', function () {
 
 // Add "New" badge to menu items with class "menu-badge-new"
 add_filter('nav_menu_item_title', function($title, $item, $args, $depth) {
-    // Use the $TLD computed at the top of functions.php
-    global $TLD;
-
-    $is_pl = ($TLD === 'pl');
+    global $is_pl;
 
     if (in_array('menu-badge-new', $item->classes)) {
         $title .= $is_pl ? ' <span class="menu-badge">Nowe</span>' : ' <span class="menu-badge">New</span>';
