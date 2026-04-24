@@ -219,8 +219,13 @@ add_action('init', function () {
 
 // Add "New" badge to menu items with class "menu-badge-new"
 add_filter('nav_menu_item_title', function($title, $item, $args, $depth) {
+    // Use the $TLD computed at the top of functions.php
+    global $TLD;
+
+    $is_pl = ($TLD === 'pl');
+
     if (in_array('menu-badge-new', $item->classes)) {
-        $title .= ' <span class="menu-badge">Nowe</span>';
+        $title .= $is_pl ? ' <span class="menu-badge">Nowe</span>' : ' <span class="menu-badge">New</span>';
     }
     return $title;
 }, 10, 4);
