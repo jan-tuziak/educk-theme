@@ -216,3 +216,11 @@ add_action('init', function () {
         ]
     );
 });
+
+// Add "New" badge to menu items with class "menu-badge-new"
+add_filter('nav_menu_item_title', function($title, $item, $args, $depth) {
+    if (in_array('menu-badge-new', $item->classes)) {
+        $title .= ' <span class="menu-badge">Nowe</span>';
+    }
+    return $title;
+}, 10, 4);

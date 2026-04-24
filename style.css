@@ -199,3 +199,15 @@ h2#c-ttl, h2#s-ttl {
 .ld-course-status.ld-course-status-not-enrolled {
 	display: none !important;
 }
+
+/* Add "New" badge to menu items with class "menu-badge-new" */
+.menu-badge {
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  border-radius: 6px;
+  vertical-align: middle;
+  font-weight: 600;
+}
